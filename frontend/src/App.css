@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import "tailwindcss";
+  /* @font-face {
+    font-family: 'CustomFont';
+    src: url('/src/assets/fonts/georgia.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+  } */
+
+  body {
+      font-family: "Montserrat", sans-serif;
+
+  }
+
+  /* For WebKit browsers (Chrome, Safari, Edge) */
+  body::-webkit-scrollbar {
+    width: 12px;
+    /* Width of the scrollbar */
+    height: 12px;
+    cursor: pointer;
+    /* Height of horizontal scrollbar */
+  }
+
+  body::-webkit-scrollbar-track {
+    background: #f7f3ef;
+    /* Color of the track (background) */
+    border-radius: 10px;
+    cursor: pointer;
+    /* Rounded corners */
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background: #C5A980;
+    /* Color of the scroll thumb */
+    border-radius: 10px;
+    /* Rounded corners */
+    border: 3px solid #f7f3ef;
+    cursor: pointer;
+    /* Creates padding around the thumb */
+  }
+
+  body::-webkit-scrollbar-thumb:hover {
+    background: #C5A980;
+    /* Color on hover */
+  }
+
+
+  .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background-color: #4440E6;
+}
+
+
+.testimonialSwiper {
+  padding: 20px 10px 50px;
+}
+
+.testimonialSwiper .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: #000;
+  opacity: 0.3;
+}
+
+.testimonialSwiper .swiper-pagination-bullet-active {
+  opacity: 1;
+  background-color: #000;
+}
+
+@media (max-width: 480px) {
+  .testimonialSwiper .swiper-pagination {
+    display: none;
+  }
+}
+
+  p {
+    @apply text-[#333333] 
+  }
+
+  span {
+    @apply  text-[14px]
+  }
+
+  a {
+    @apply font-sans;
+  }
+
+  h1 {
+    @apply text-[#333333]
+  }
+
+
+  h3 {
+    @apply font-sans opacity-90
+  }
+
+  h4 {
+    @apply sm:text-xl text-base
+  }
+
+  h5 {
+    @apply sm:text-base text-base
+  }
+
+  h6 {
+    @apply font-semibold
+  }
+
+  .blog_content h2 {
+    font-size: 2rem !important;
+    color: #333 !important;
+    padding-bottom: 10px !important;
+  }
+
+  .banner_content h2{
+      font-size: 1.8rem !important;
+    color: #333 !important;
+    padding-bottom: 10px !important;
+  }
+
+  .blog_content h3,
+  .faq_content h3  {
+    font-size: 1.75rem !important;
+    color: #000 !important;
+    padding-bottom: 9px !important;
+  }
+
+  .blog_content p,
+
+  .faq_content p  {
+    color: #333 !important;
+    font-size: 16px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .blog_content table {
+    border: 1px solid gray !important;
+    margin-bottom: 15px !important;
+  }
+
+  .blog_content table tbody tr td {
+    padding: 15px !important;
+    width: auto !important;
+    font-size: 14px !important;
+    border: 1px solid hsla(0, 0%, 50.2%, .5019607843);
+  }
+
+
+  /* Zebra striping - alternate row colors */
+  .blog_content table tbody tr:nth-child(odd) td {
+    background-color: hsla(0, 0%, 50.2%, .0705882353) !important;
+  }
+
+  .blog_content table tbody tr:nth-child(even) td {
+    background-color: white !important;
+  }
+
+  .blog_content table tbody tr:nth-child(even) td:hover {
+    background-color: #F2F2F2 !important;
+  }
+
+  .blog_content table tbody tr:hover {
+    background-color: #F2F2F2 !important;
+  }
+
+  .blog_content a,
+
+  .faq_content a {
+    color: #4440E6 !important;
+    font-size: 16px;
+  }
+
+  .faq_content p{
+    color: #777 !important;
+    font-size: 14px !important;
+  }
+
+  .overflow-y-auto::-webkit-scrollbar {
+
+    width: 6px !important;
+
+  }
+
+  .overflow-y-auto::-webkit-scrollbar-track {
+    background-color: transparent !important;
+  }
+
+  .overflow-y-auto::-webkit-scrollbar-thumb {
+    background-color: #4440E6 !important;
+    border-radius: 4px !important;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+
+
+
+  @media screen and (max-width: 480px) {
+    .banner_content h2{
+      font-size: 1.3rem !important;
+    color: #333 !important;
+    padding-bottom: 10px !important;
+  }
+
+  .banner_content p{
+      font-size: 14px !important;
+  }
+
+
+  .blog_content h2 {
+    font-size: 1.3rem !important;
+    color: #333 !important;
+    padding-bottom: 10px !important;
+  }
+
+  }

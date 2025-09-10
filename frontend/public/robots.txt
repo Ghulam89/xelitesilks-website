@@ -1,0 +1,34 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://umbrellapackaging.com/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /backend/
+Disallow: /tmp/
+Disallow: /upload/
+
+# Allow important pages
+Allow: /
+Allow: /about-us
+Allow: /contact-us
+Allow: /blogs
+Allow: /shop
+Allow: /get-custom-quote
+Allow: /target-price
+Allow: /faqs
+Allow: /portfolio
+Allow: /reviews
+Allow: /privacy-policy
+Allow: /terms-and-conditions
+Allow: /shipping-policy
+Allow: /returns-refunds
+
+# Allow dynamic content (all using direct routes)
+# Categories, sub-categories, products, and blog posts are all at root level
+
+# Crawl delay (optional - be respectful to server)
+Crawl-delay: 1 
