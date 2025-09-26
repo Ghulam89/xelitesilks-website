@@ -1,12 +1,8 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const brandSchema = new Schema({
+const collectionSchema = new Schema({
   name: {
-    type: String,
-    require: true,
-  },
-  bannerImage: {
     type: String,
     require: true,
   },
@@ -14,27 +10,11 @@ const brandSchema = new Schema({
     type: String,
     unique: true,
   },
-  bannerAltText: {
+  description: {
     type: String,
     require: true,
   },
-  image: {
-    type: String,
-    require: true,
-  },
-  imageAltText: {
-    type: String,
-    require: true,
-  },
-  content: {
-    type: String,
-    require: true,
-  },
-  bgColor: {
-    type: String,
-    require: true,
-  },
-   metaTitle: { type: String },
+  metaTitle: { type: String },
   metaDescription: { type: String },
   keywords: { type: String },
   robots: { type: String },
@@ -50,4 +30,4 @@ const brandSchema = new Schema({
   },
 });
 
-export const Brands = mongoose.model("Brands", brandSchema);
+export const Collections = mongoose.model("Collections", collectionSchema);

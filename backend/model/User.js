@@ -15,10 +15,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  image: {
-    type: String,
-    require: true,
-  },
   status: {
     type: String,
     enum: ["pending", "approved", "blocked"],

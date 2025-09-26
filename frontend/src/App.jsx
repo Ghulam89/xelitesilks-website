@@ -26,7 +26,7 @@ function App({ serverData, CategoryProducts }) {
       <Navbar />
 
       {element}
-      <Footer />
+      <Footer /> 
     </>
   );
 }

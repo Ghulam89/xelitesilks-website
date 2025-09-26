@@ -25,9 +25,9 @@ export const Home = () => {
   "@type": "LocalBusiness",
   "name": "Umbrella Custom Packaging",
   "hasMap": "https://www.google.com/maps/place/Umbrella+Custom+Packaging+USA/@34.0304757,-118.4009978,17z/data=!3m2!4b1!5s0x80c2bbd3055d51a3:0x68496cbd465819b1!4m6!3m5!1s0x80c2bbbf80eec803:0x8425555061bf7fe8!8m2!3d34.0304757!4d-118.4009978!16s%2Fg%2F11smvg80n4?entry=ttu&g_ep=EgoyMDI1MDcxMy4wIKXMDSoASAFQAw%3D%3D",
-  "url": "https://umbrellapackaging.com",
-  "logo": "https://umbrellapackaging.com/src/assets/images/xelite silk.svg",
-  "image": "https://umbrellapackaging.com/src/assets/images/web-banner.webp",
+  "url": "https://xelitesilks.com",
+  "logo": "https://xelitesilks.com/src/assets/images/xelite silk.svg",
+  "image": "https://xelitesilks.com/src/assets/images/web-banner.webp",
   "telephone": "+1-747-247-0456",
   "description": "Get high-quality custom packaging boxes at wholesale prices. We offer affordable packaging for businesses of all sizes. Enjoy bulk discounts, free design support, and fast, reliable shipping. Order now for unmatched prices!",
   "founder": {

@@ -297,13 +297,13 @@ const Checkout = () => {
                   <p className="font-medium">Credit Card</p>
                   <div className="flex flex-wrap gap-2">
                     {[
-                      'https://umbrellapackaging.com/wp-content/plugins/woocommerce-square/build/images/card-visa.svg',
-                      'https://umbrellapackaging.com/wp-content/plugins/woocommerce-square/build/images/card-mastercard.svg',
-                      'https://umbrellapackaging.com/wp-content/plugins/woocommerce-square/build/images/card-amex.svg',
-                      'https://umbrellapackaging.com/wp-content/plugins/woocommerce-square/build/images/card-discover.svg',
-                      'https://umbrellapackaging.com/wp-content/plugins/woocommerce-square/build/images/card-dinersclub.svg',
-                      'https://umbrellapackaging.com/wp-content/plugins/woocommerce-square/build/images/card-jcb.svg',
-                      'https://umbrellapackaging.com/wp-content/plugins/woocommerce-square/build/images/card-unionpay.svg'
+                      'https://xelitesilks.com/wp-content/plugins/woocommerce-square/build/images/card-visa.svg',
+                      'https://xelitesilks.com/wp-content/plugins/woocommerce-square/build/images/card-mastercard.svg',
+                      'https://xelitesilks.com/wp-content/plugins/woocommerce-square/build/images/card-amex.svg',
+                      'https://xelitesilks.com/wp-content/plugins/woocommerce-square/build/images/card-discover.svg',
+                      'https://xelitesilks.com/wp-content/plugins/woocommerce-square/build/images/card-dinersclub.svg',
+                      'https://xelitesilks.com/wp-content/plugins/woocommerce-square/build/images/card-jcb.svg',
+                      'https://xelitesilks.com/wp-content/plugins/woocommerce-square/build/images/card-unionpay.svg'
                     ].map((src, index) => (
                       <img
                         key={index}

@@ -2,17 +2,18 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
-  brandId: {
+  collectionId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Brands",
-  },
-  categoryId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "MidCategory",
+    ref: "Collections",
   },
   name: {
     type: String,
     require: true,
+  },
+   stock: {
+    type: Number,
+    default: 0,
+    min: 0,
   },
  metaTitle: { type: String },
   metaDescription: { type: String },
@@ -44,23 +45,6 @@ const productSchema = new Schema({
     type: String,
     require: true,
   },
-  bannerImage:{
-   type:String,
-   require:true 
-  },
-   bannerImageAltText:{
-     type: String,
-    require: true,
-  },
-  
-  bannerTitle:{
-    type:String,
-    require:true 
-   },
-   bannerContent:{
-    type:String,
-    require:true 
-   },
   createdAt: {
     type: Date,
     default: Date.now,

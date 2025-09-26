@@ -48,7 +48,7 @@ export const customerTemplate = (data) => `<!DOCTYPE html>
                   </div>
                   <!-- Right Column (Contact Details) -->
                   <div style="text-align: right; flex: 1;">
-                      <p style="margin: 0;"><a href="https://umbrellapackaging.com/" style="text-decoration: none; color: #0076a8; font-weight: bold;">www.umbrellapackaging.com</a></p>
+                      <p style="margin: 0;"><a href="https://xelitesilks.com/" style="text-decoration: none; color: #0076a8; font-weight: bold;">www.umbrellapackaging.com</a></p>
                       <p style="margin: 0;"><a href="tel:+17472470456" style="text-decoration: none; color: #0076a8; font-weight: bold;">+1-747-247-0456</a></p>
                   </div>
               </div>

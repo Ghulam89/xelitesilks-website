@@ -1,8 +1,7 @@
 
 import { catchAsyncError } from "../middleware/catchAsyncError.js";
-import { Brands } from "../model/Brand.js";
+import { Collections } from "../model/Collection.js";
 import { Products } from "../model/Product.js";
-import { MidCategory } from "../model/MidCategory.js";
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -49,17 +48,15 @@ export const createProducts = catchAsyncError(async (req, res, next) => {
     actualPrice,
     size,
     description,
+    stock,
     bannerTitle,
-    bannerContent,
-    brandId,
-    categoryId,
-    bannerImageAltText
+    collectionId,
   } = req.body;
 
-  if (!req.files || !req.files['images'] || !req.files['bannerImage']) {
+  if (!req.files || !req.files['images']) {
     return res.status(400).json({
       status: "fail",
-      message: "Both product images (field name: 'images') and banner image (field name: 'bannerImage') are required",
+      message: "product images are required",
     });
   }
 
@@ -75,12 +72,7 @@ export const createProducts = catchAsyncError(async (req, res, next) => {
         }
       });
     }
-    if (req.files['bannerImage']) {
-      const bannerPath = req.files['bannerImage'][0].path;
-      if (fs.existsSync(bannerPath)) {
-        fs.unlinkSync(bannerPath);
-      }
-    }
+    
 
     return res.status(409).json({
       status: "fail",
@@ -98,12 +90,7 @@ export const createProducts = catchAsyncError(async (req, res, next) => {
       altText: formatFileName(image.originalname)
     }));
 
-    const bannerImageFile = Array.isArray(req.files['bannerImage'])
-      ? req.files['bannerImage'][0]
-      : req.files['bannerImage'];
-
-    const bannerPath = `images/${bannerImageFile.filename}`.replace(/\\/g, '/');
-
+   
     const productData = {
       name,
       slug,
@@ -114,13 +101,9 @@ export const createProducts = catchAsyncError(async (req, res, next) => {
       actualPrice,
       size,
       description,
-      bannerTitle,
-      bannerContent,
+      stock,
       images,
-      bannerImage: bannerPath,
-      bannerImageAltText,
-      brandId,
-      categoryId,
+      collectionId,
     };
 
     const newProduct = await Products.create(productData);
@@ -136,12 +119,7 @@ export const createProducts = catchAsyncError(async (req, res, next) => {
         fs.unlinkSync(path.join(__dirname, '..', image.path));
       });
     }
-    if (req.files['bannerImage']) {
-      const bannerImageFile = Array.isArray(req.files['bannerImage'])
-        ? req.files['bannerImage'][0]
-        : req.files['bannerImage'];
-      fs.unlinkSync(path.join(__dirname, '..', bannerImageFile.path));
-    }
+    
     return next(error);
   }
 });
@@ -150,7 +128,7 @@ export const getBrandProductsByCategory = catchAsyncError(async (req, res, next)
   const brandId = req.params.brandId;
 
   try {
-    const brand = await Brands.findById(brandId);
+    const brand = await Collections.findById(brandId);
     if (!brand) {
       return res.status(404).json({
         status: "fail",
@@ -253,8 +231,7 @@ export const getRelatedProducts = catchAsyncError(async (req, res, next) => {
     const relatedProducts = await Products.find({
       _id: { $ne: mainProduct._id },
       $or: [
-        { categoryId: mainProduct.categoryId },
-        { brandId: mainProduct.brandId }, 
+        { collectionId: mainProduct.collectionId }, 
       ],
     })
       .limit(8) 
@@ -271,62 +248,7 @@ export const getRelatedProducts = catchAsyncError(async (req, res, next) => {
   }
 });
 
-export const getProductsByCategory = catchAsyncError(async (req, res, next) => {
-  const categoryId = req.params.categoryId;
-  const page = parseInt(req.query.page) || 1;
-  const limit = 12;
 
-  try {
-
-    const category = await MidCategory.findById(categoryId);
-
-    if (!category) {
-
-      return res.status(404).json({
-        status: "fail",
-        message: "Category not found",
-      });
-    }
-
-    console.log('Found category:', category.name);
-
-    const skip = (page - 1) * limit;
-
-    const queryConditions = {
-      $or: [
-        { category: categoryId },
-        { midCategory: categoryId },
-        { categoryId: categoryId }
-      ]
-    };
-
-
-    const products = await Products.find(queryConditions)
-      .skip(skip)
-      .limit(limit)
-      .lean();
-
-
-    const totalProducts = await Products.countDocuments(queryConditions);
-    const totalPages = Math.ceil(totalProducts / limit);
-
-    res.status(200).json({
-      status: "success",
-      results: products.length,
-      currentPage: page,
-      totalPages: totalPages,
-      totalProducts: totalProducts,
-      data: products
-    });
-
-  } catch (error) {
-    res.status(500).json({
-      status: "error",
-      message: "Internal server error",
-
-    });
-  }
-});
 
 export const getProductsById = async (req, res, next) => {
   const { id, slug } = req.query;
@@ -347,7 +269,7 @@ export const getProductsById = async (req, res, next) => {
     }
 
     // Always populate categoryId and brandId
-    query = query.populate("categoryId","_id title slug").populate("brandId","_id name slug");
+    query = query.populate("collectionId","_id name slug");
 
     const data = await query.exec();
 
@@ -474,18 +396,10 @@ export const getAllProducts = catchAsyncError(async (req, res, next) => {
     const skip = (page - 1) * perPage;
     const sortOption = getSortOption(req.query.sort);
     let filter = {};
-    if (req.query.categoryId) {
-      filter['categoryId'] = req.query.categoryId;
-    } else if (req.query.categoryTitle) {
-      filter['categoryId'] = await Category.findOne({
-        title: new RegExp(req.query.categoryTitle, "i")
-      }).select('_id');
-    }
-
-    if (req.query.brandId) {
-      filter['brandId'] = req.query.brandId;
+    if (req.query.collectionId) {
+      filter['collectionId'] = req.query.collectionId;
     } else if (req.query.brandName) {
-      filter['brandId'] = await Brands.findOne({
+      filter['collectionId'] = await Collections.findOne({
         name: new RegExp(req.query.brandName, "i")
       }).select('_id');
     }
@@ -505,11 +419,7 @@ export const getAllProducts = catchAsyncError(async (req, res, next) => {
 
     const products = await Products.find(filter)
       .populate({
-        path: "categoryId",
-        select: "title slug"
-      })
-      .populate({
-        path: "brandId",
+        path: "collectionId",
         select: "name slug"
       })
       .sort(sortOption)

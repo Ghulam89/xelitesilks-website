@@ -13,19 +13,31 @@ cloudinary.v2.config({
 
 // register user
 export const register = catchAsyncError(async (req, res, next) => {
-  const data = req.body;
-  const email = data?.email;
-  const existingUser = await User.findOne({ email: email });
+  const { email, password, ...rest } = req.body;
+
+  const existingUser = await User.findOne({ email });
   if (existingUser) {
     return res
       .status(400)
       .json({ message: "Email already exists", status: "fail" });
   }
-  const user = await User.create(data);
-  const token = jwt.sign({ id: user._id, email: user.email }, TOKEN_KEY, {
-    expiresIn: "1h",
+
+  const saltRounds = 10;
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+  const user = await User.create({
+    email,
+    password: hashedPassword,
+    ...rest,
   });
-  res.status(200).json({
+
+  const token = jwt.sign(
+    { id: user._id, email: user.email },
+    TOKEN_KEY,
+    { expiresIn: "1h" }
+  );
+
+  res.status(201).json({
     status: "success",
     message: "User registered successfully",
     data: {
@@ -36,36 +48,35 @@ export const register = catchAsyncError(async (req, res, next) => {
 });
 
 // login user
-export const login = catchAsyncError(async (req, res, next) => {
-  try {
-    const { email, password } = req.body;
-    console.log("Request body:", req.body);
-    const existingUser = await User.findOne({ email: email });
-    if (!existingUser) {
-      return res.status(404).json({
-        status: "fail",
-        message: "Account not found",
-      });
-    }
-    console.log("Existing user password:", existingUser.password);
-    if (!password) {
-      return res.status(400).json({
-        status: "fail",
-        message: "Password is required",
-      });
-    }
+  export const login = catchAsyncError(async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
 
-    if (!existingUser.password) {
-      return res.status(500).json({
-        status: "fail",
-        message: "User password is missing in the database",
-      });
-    }
+      console.log(req.body);
+      
+      const existingUser = await User.findOne({ email: email });
+      if (!existingUser) {
+        return res.status(404).json({
+          status: "fail",
+          message: "Account not found",
+        });
+      }
+      console.log("Existing user password:", existingUser.password);
+      if (!password) {
+        return res.status(400).json({
+          status: "fail",
+          message: "Password is required",
+        });
+      }
 
-    const isPasswordValid = await bcrypt.compare(
-      password,
-      existingUser.password
-    );
+      if (!existingUser.password) {
+        return res.status(500).json({
+          status: "fail",
+          message: "User password is missing in the database",
+        });
+      }
+
+     const isPasswordValid = await bcrypt.compare(password, existingUser.password);
     if (!isPasswordValid) {
       return res.status(401).json({
         status: "fail",
@@ -73,27 +84,27 @@ export const login = catchAsyncError(async (req, res, next) => {
       });
     }
 
-    const token = jwt.sign(
-      { id: existingUser._id, email: existingUser.email },
-      TOKEN_KEY,
-      {
-        expiresIn: "1h",
-      }
-    );
+      const token = jwt.sign(
+        { id: existingUser._id, email: existingUser.email },
+        TOKEN_KEY,
+        {
+          expiresIn: "1h",
+        }
+      );
 
-    res.status(200).json({
-      status: "success",
-      message: "User logged in successfully",
-      data: {
-        user: existingUser,
-        token,
-      },
-    });
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({ message: error.message });
-  }
-});
+      res.status(200).json({
+        status: "success",
+        message: "User logged in successfully",
+        data: {
+          user: existingUser,
+          token,
+        },
+      });
+    } catch (error) {
+      console.error("Login error:", error);
+      res.status(500).json({ message: error.message });
+    }
+  });
 
 // get user by id
 export const getUserById = async (req, res, next) => {
