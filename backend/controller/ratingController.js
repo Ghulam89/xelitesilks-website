@@ -77,8 +77,17 @@ export const getRatingByProductId = async (req, res) => {
   const { id } = req.params;
   try {
     const ratings = await Rating.find({ product: id }).populate("user");
+
+    const totalRatings = ratings.length;
+    const averageRating =
+      totalRatings > 0
+        ? ratings.reduce((sum, rating) => sum + rating.rating, 0) / totalRatings
+        : 0;
+
     res.status(200).json({
       data: ratings,
+      averageRating: parseFloat(averageRating.toFixed(1)),
+      totalRatings,
       message: "Ratings fetched successfully",
       status: "success",
     });
@@ -86,6 +95,7 @@ export const getRatingByProductId = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
 export const getRatingByUserId = async (req, res) => {
   const { id } = req.params;
   try {

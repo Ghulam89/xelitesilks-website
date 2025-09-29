@@ -47,9 +47,11 @@ export const createProducts = catchAsyncError(async (req, res, next) => {
       robots,
     actualPrice,
     size,
+    material,
+    pattern,
+    color,
     description,
     stock,
-    bannerTitle,
     collectionId,
   } = req.body;
 
@@ -100,6 +102,9 @@ export const createProducts = catchAsyncError(async (req, res, next) => {
       robots,
       actualPrice,
       size,
+      material,
+      pattern,
+      color,
       description,
       stock,
       images,
@@ -125,11 +130,11 @@ export const createProducts = catchAsyncError(async (req, res, next) => {
 });
 
 export const getBrandProductsByCategory = catchAsyncError(async (req, res, next) => {
-  const brandId = req.params.brandId;
+  const collectionId = req.params.collectionId;
 
   try {
-    const brand = await Collections.findById(brandId);
-    if (!brand) {
+    const collection = await Collections.findById(collectionId);
+    if (!collection) {
       return res.status(404).json({
         status: "fail",
         message: "Brand not found",
@@ -138,7 +143,7 @@ export const getBrandProductsByCategory = catchAsyncError(async (req, res, next)
     const productsByCategory = await Products.aggregate([
        {
         $match: {
-          brandId: new mongoose.Types.ObjectId(brandId)
+          collectionId: new mongoose.Types.ObjectId(collection)
         }
       },
       {

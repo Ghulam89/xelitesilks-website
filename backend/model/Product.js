@@ -10,20 +10,20 @@ const productSchema = new Schema({
     type: String,
     require: true,
   },
-   stock: {
+  stock: {
     type: Number,
     default: 0,
     min: 0,
   },
- metaTitle: { type: String },
+  metaTitle: { type: String },
   metaDescription: { type: String },
   keywords: { type: String },
   robots: { type: String },
-   slug: {
+  slug: {
     type: String,
     unique: true,
   },
-   images: [{
+  images: [{
     url: {
       type: String,
       required: true
@@ -38,6 +38,18 @@ const productSchema = new Schema({
     require: true,
   },
   size: {
+    type: String,
+    require: true,
+  },
+  material: {
+    type: String,
+    require: true,
+  },
+  color: {
+    type: Array,
+    require: true,
+  },
+  pattern: {
     type: String,
     require: true,
   },
