@@ -132,6 +132,7 @@ export const createProducts = catchAsyncError(async (req, res, next) => {
 export const getCollectionByProducts = catchAsyncError(async (req, res, next) => {
   const collectionId = req.params.collectionId;
   const collection = await Collections.findById(collectionId);
+  
   if (!collection) {
     return res.status(404).json({
       status: "fail",
@@ -139,7 +140,94 @@ export const getCollectionByProducts = catchAsyncError(async (req, res, next) =>
     });
   }
 
-  const products = await Products.find({ collectionId: collection._id });
+  // Build filter object
+  let filter = { collectionId: collection._id };
+
+  // Color filtering
+  if (req.query.colors) {
+    const colors = Array.isArray(req.query.colors) ? req.query.colors : [req.query.colors];
+    filter.colors = { $in: colors.map(color => new RegExp(color, 'i')) };
+  }
+
+  // Material filtering
+  if (req.query.material) {
+      filter.material = new RegExp(req.query.material, "i");
+  }
+
+  // Pattern filtering
+  if (req.query.patterns) {
+    filter.patterns = new RegExp(req.query.patterns, "i");
+  }
+
+  // Price range filtering
+  if (req.query.minPrice || req.query.maxPrice) {
+    filter.$or = [
+      { price: {} },
+      { salePrice: {} }
+    ];
+    
+    if (req.query.minPrice) {
+      const minPrice = parseFloat(req.query.minPrice);
+      filter.$or[0].price.$gte = minPrice;
+      filter.$or[1].salePrice.$gte = minPrice;
+    }
+    
+    if (req.query.maxPrice) {
+      const maxPrice = parseFloat(req.query.maxPrice);
+      filter.$or[0].price.$lte = maxPrice;
+      filter.$or[1].salePrice.$lte = maxPrice;
+    }
+  }
+
+  // Name search
+  if (req.query.name) {
+    filter.name = new RegExp(req.query.name, "i");
+  }
+
+  // Status filtering
+  if (req.query.status) {
+    filter.status = req.query.status;
+  }
+
+  // Pagination
+  const page = parseInt(req.query.page, 10) || 1;
+  const perPage = parseInt(req.query.perPage, 10) || 15;
+  const skip = (page - 1) * perPage;
+
+  // Sorting
+  let sortOption = {};
+  if (req.query.sort) {
+    switch (req.query.sort) {
+      case 'price-low':
+        sortOption = { price: 1 };
+        break;
+      case 'price-high':
+        sortOption = { price: -1 };
+        break;
+      case 'newest':
+        sortOption = { createdAt: -1 };
+        break;
+      case 'name':
+        sortOption = { name: 1 };
+        break;
+      default:
+        sortOption = { createdAt: -1 };
+    }
+  } else {
+    sortOption = { createdAt: -1 };
+  }
+
+  const products = await Products.find(filter)
+    .populate({
+      path: "collectionId",
+      select: "name slug"
+    })
+    .sort(sortOption)
+    .skip(skip)
+    .limit(perPage);
+
+  const totalProducts = await Products.countDocuments(filter);
+  const totalPages = Math.ceil(totalProducts / perPage);
 
   res.status(200).json({
     status: "success",
@@ -151,10 +239,15 @@ export const getCollectionByProducts = catchAsyncError(async (req, res, next) =>
         image: collection.image,
       },
       products: products,
+      totalProducts: totalProducts,
+      pagination: {
+        page,
+        perPage,
+        totalPages,
+      },
     },
   });
 });
-
 
 export const getRelatedProducts = catchAsyncError(async (req, res, next) => {
   const productSlug = req.query.slug;
@@ -336,7 +429,10 @@ export const getAllProducts = catchAsyncError(async (req, res, next) => {
     const perPage = parseInt(req.query.perPage, 10) || 15;
     const skip = (page - 1) * perPage;
     const sortOption = getSortOption(req.query.sort);
+    
     let filter = {};
+    
+    // Collection/Brand filtering
     if (req.query.collectionId) {
       filter['collectionId'] = req.query.collectionId;
     } else if (req.query.brandName) {
@@ -345,15 +441,35 @@ export const getAllProducts = catchAsyncError(async (req, res, next) => {
       }).select('_id');
     }
 
+    // Name search
     if (req.query.name) {
       filter.name = new RegExp(req.query.name, "i");
     }
+
+    // Price range filtering
     if (req.query.minPrice || req.query.maxPrice) {
-      filter.price = {};
-      if (req.query.minPrice) filter.price.$gte = parseFloat(req.query.minPrice);
-      if (req.query.maxPrice) filter.price.$lte = parseFloat(req.query.maxPrice);
+      filter.actualPrice = {};
+      if (req.query.minPrice) filter.actualPrice.$gte = parseFloat(req.query.minPrice);
+      if (req.query.maxPrice) filter.actualPrice.$lte = parseFloat(req.query.maxPrice);
     }
 
+    // Color filtering (supports multiple colors)
+    if (req.query.color) {
+      const colors = Array.isArray(req.query.color) ? req.query.color : [req.query.color];
+      filter.color = { $in: colors.map(color => new RegExp(color, 'i')) };
+    }
+
+    // Material filtering
+    if (req.query.material) {
+      filter.material = new RegExp(req.query.material, 'i');
+    }
+
+    // Pattern filtering
+    if (req.query.pattern) {
+      filter.pattern = new RegExp(req.query.pattern, 'i');
+    }
+
+    // Status filtering
     if (req.query.status) {
       filter.status = req.query.status;
     }
@@ -378,7 +494,6 @@ export const getAllProducts = catchAsyncError(async (req, res, next) => {
         page,
         perPage,
         totalPages,
-        
       },
     });
   } catch (error) {

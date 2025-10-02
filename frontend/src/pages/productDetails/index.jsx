@@ -40,6 +40,7 @@ import where from '../../assets/images/3.webp'
 import { FaStar } from 'react-icons/fa'
 import FaqComp from '../../components/common/FaqComp'
 import SingleProductTabs from '../../components/common/SingleProductTabs'
+import AddToCartSideMenu from '../../components/common/AddToCartSideMenu'
 
 const ProductDetails = ({
   serverData,
@@ -52,6 +53,7 @@ const ProductDetails = ({
   const [product, setProduct] = useState(serverData || null);
   const [relatedProduct, setRelatedProduct] = useState([])
   const navigate = useNavigate();
+  const [showCartSideMenu, setShowCartSideMenu] = React.useState(false);
 
   // Fix: Initialize activeImage with the first image when product loads
   const [activeImage, setActiveImage] = useState(null);
@@ -369,6 +371,21 @@ const ProductDetails = ({
 
 
               <Button
+
+                onClick={() => {
+                  dispatch(
+                    addToCart({
+                      _id: product._id,
+                      image: `${BaseUrl}/${product?.images[0]?.url}`,
+                      title: product.name,
+                      price: product.actualPrice,
+                      description: product.description,
+                      quantity: 1,
+                    })
+                  )
+                  // navigate('/cart')
+                  setShowCartSideMenu(true)
+                }}
                 rIcons={
                   <svg className='' width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="13" cy="13" r="12.5" fill="currentColor" stroke="black" />
@@ -407,18 +424,17 @@ const ProductDetails = ({
                 <FaqComp
                   title={"Xelitesilks's Inspiration"}
                   answer={
-                    "This long silk scarf features a classic Toile de Jouy motif—pastoral French scenes drawn in delicate, single-tone detail - framed by maiolica tile borders inspired by hand-painted ceramics from Southern Italy."
+                    product?.inspiration
                   }
                 />
                 <FaqComp
                   title={"Details"}
                   answer={
-                    'Approx. 20” x 67” (53 x 170cm). Years of trial and error taught us that this size scarf is one of the simplest to style and makes every woman look chic.'
-                  }
+                    product?.description}
                 />
                 <FaqComp
                   title={"Styling Guide"}
-                  answer={"Wondering how to style your scarf? Get inspired in our guide"}
+                  answer={product?.guide}
                 />
               </div>
             </div>
@@ -505,6 +521,11 @@ const ProductDetails = ({
           </div>
         </div>
       )}
+
+      {showCartSideMenu && (
+        <AddToCartSideMenu onClose={() => setShowCartSideMenu(false)} />
+      )}
+
     </>
   )
 }

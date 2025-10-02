@@ -3,10 +3,49 @@ import banner from "../../assets/images/about-banner.webp";
 import fire from "../../assets/images/icon-fire.png";
 import cartimg from "../../assets/images/product-cart.webp";
 import { FaTrashAlt } from "react-icons/fa";
+import { BaseUrl } from "../../utils/BaseUrl";
+import { useDispatch, useSelector } from "react-redux";
+import PageMetadata from "../../components/common/PageMetadata";
 
 function Cart() {
+
+  
+
+  const { productData: cartItems } = useSelector((state) => state.product);
+
+  console.log(cartItems);
+  const dispatch = useDispatch()
+
+
+  const subtotal = cartItems?.reduce((sum, item) => {
+    return sum + (item.price * item.quantity);
+  }, 0) || 0;
+
+  const total = subtotal;
+
+  const handleQuantityChange = (id, newQuantity) => {
+    if (newQuantity >= 1) {
+      dispatch(updateQuantity({ id, quantity: parseInt(newQuantity) }));
+    }
+  };
+
+  const metadata = {
+    title: "add to cart - Umbrella Custom Packaging",
+    description: "Umbrella Custom Packaging",
+    // keywords: "custom packaging, wholesale boxes, packaging solutions, affordable packaging, custom boxes, packaging design, eco-friendly packaging",
+    author: "Umbrella Custom Packaging",
+    ogUrl: `${BaseUrl}/cart`,
+    ogTitle: "add to cart - Umbrella Custom Packaging",
+    // ogDescription: "Our Blogs Simple Steps to get the Custom Packaging Produced Following are few steps which provide the complete Guide. Price Quote Payment Design Approval Production Shipping Reorders Get Price Quote Submit a request for free custom quote first through our website or calling our customer service representative. You will have the prices in 30 minutes. [&hellip;]",
+    modifiedTime: "2025-06-13T15:18:43+00:00",
+    twitterTitle: "add to cart - Umbrella Custom Packaging",
+    // twitterDescription: "Our Blogs Simple Steps to get the Custom Packaging Produced Following are few steps which provide the complete Guide. Price Quote Payment Design Approval Production Shipping Reorders Get Price Quote Submit a request for free custom quote first through our website or calling our customer service representative. You will have the prices in 30 minutes. [&hellip;]",
+    robots: "index, follow"
+  };
+
   return (
     <>
+    <PageMetadata {...metadata} />
       {/* Hero Banner */}
       <div className="container-fluid mx-auto">
         <div
@@ -55,21 +94,23 @@ function Cart() {
                 <tbody>
                  
 
-                
-                  <tr className="border-b hover:bg-gray-50 transition">
+                  {
+                    cartItems?.map((item,index)=>{
+                      return (
+ <tr className="border-b hover:bg-gray-50 transition">
                     <td className="p-3">
                       <div className="flex sm:flex-col lg:flex-col flex-col gap-3 items-center">
                         <img
-                          src={cartimg}
+                          src={item?.image}
                           alt="product"
                           className="h-20 w-20 object-cover rounded-md shadow-sm"
                         />
                         <h5 className="text-sm md:text-base font-medium text-gray-700 whitespace-nowrap">
-                          Another Silk Scarf - Blue
+                          {item?.title}
                         </h5>
                       </div>
                     </td>
-                    <td className="p-3 text-gray-600">$95.00</td>
+                    <td className="p-3 text-gray-600">${item?.price}</td>
                     <td className="p-3">
                       <div className="flex items-center gap-2">
                         <button className="px-2 h-10 w-10 text-2xl text-center py-1 border border-gray-300 rounded hover:bg-gray-100 bg-[#c5a980]">-</button>
@@ -89,6 +130,10 @@ function Cart() {
                       </button>
                     </td>
                   </tr>
+                      )
+                    })
+                  }
+                 
                 </tbody>
               </table>
             </div>
