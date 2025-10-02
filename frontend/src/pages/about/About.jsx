@@ -1,181 +1,144 @@
+import React from 'react'
+import banner from '../../assets/images/about-banner.webp'
+import about1 from '../../assets/images/about1.jpg'
+import about2 from '../../assets/images/about2.jpg'
+import about3 from '../../assets/images/about3.jpg'
+import team1 from '../../assets/images/team-1.jpg'
+import team2 from '../../assets/images/team-2.jpg'
+import team3 from '../../assets/images/team-3.jpg'
+import team4 from '../../assets/images/team-4.jpg'
 
-
-import React, { useState } from 'react'
-import banner from '../../assets/images/banner.jpg'
-import { IoPlayCircleOutline } from "react-icons/io5";
-import map from '../../assets/images/map-01.png'
-import Icon1 from '../../assets/images/icon/free quote.svg';
-import Icon3 from '../../assets/images/icon/Free Design support.svg';
-import Icon2 from '../../assets/images/icon/Free Lamination.svg';
-import aboutVideo from '../../assets/videos/about.mp4'
-import Icon4 from '../../assets/images/icon/free shipping.svg';
-import Icon5 from '../../assets/images/icon/FSC Certified.svg';
-import Icon6 from '../../assets/images/icon/Quickest Turnaround.svg';
-import CustomPackagingApart from '../../components/CustomPackagingApart/CustomPackagingApart';
-import { BaseUrl } from '../../utils/BaseUrl';
-import PageMetadata from '../../components/common/PageMetadata';
-
-export const About = () => {
-
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
-
-  const openVideoPlayer = () => {
-    setIsVideoOpen(true);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeVideoPlayer = () => {
-    setIsVideoOpen(false);
-    document.body.style.overflow = 'auto';
-  };
-  const metadata = {
-    title: "About us - Umbrella Custom Packaging",
-    description: "Umbrella Custom Packaging Umbrella Custom Packaging offers customized printing and packaging solutions for all your business needs. We have technologically advanced digital and offset presses. It ensures that every packaging box we print has supreme quality. Our accomplished designers provide amazing artwork choices for all kinds of boxes. We don’t charge our valued customers for [&hellip;]",
-    keywords: "custom packaging, wholesale boxes, packaging solutions, affordable packaging, custom boxes, packaging design, eco-friendly packaging",
-    author: "Umbrella Custom Packaging",
-    ogUrl: `${BaseUrl}/about-us`,
-    ogTitle: "About us - Umbrella Custom Packaging",
-    ogDescription: "Umbrella Custom Packaging Umbrella Custom Packaging offers customized printing and packaging solutions for all your business needs. We have technologically advanced digital and offset presses. It ensures that every packaging box we print has supreme quality. Our accomplished designers provide amazing artwork choices for all kinds of boxes. We don’t charge our valued customers for [&hellip;]",
-    modifiedTime: "2025-06-13T15:18:43+00:00",
-    twitterTitle: "About us - Umbrella Custom Packaging",
-    twitterDescription: "Umbrella Custom Packaging Umbrella Custom Packaging offers customized printing and packaging solutions for all your business needs. We have technologically advanced digital and offset presses. It ensures that every packaging box we print has supreme quality. Our accomplished designers provide amazing artwork choices for all kinds of boxes. We don’t charge our valued customers for [&hellip;]",
-    robots: "noindex, nofollow"
-  };
+function About() {
+  const teams = [
+    { name: 'Maria Rossi', role: 'Founder & CEO', image: team1, bio: 'Maria founded the company in 2004 with a vision to bring authentic Italian craftsmanship to the world.' },
+    { name: 'Francesca Bianchi', role: 'Co-Founder & Creative Director', image: team2, bio: 'Francesca joined the team in 2020, bringing fresh ideas and a modern touch to our classic designs.' },
+    { name: 'Luca Verdi', role: 'Head of Production', image: team3, bio: 'Luca oversees our production process, ensuring every piece meets our high standards of quality.' },
+    { name: 'Giulia Neri', role: 'Marketing Manager', image: team4, bio: 'Giulia manages our marketing efforts, connecting us with customers around the globe.' },
+  ];
   return (
     <>
-      <PageMetadata {...metadata} />
-      <main>
-        <div className='max-w-[1200px] mt-5 mx-auto text-center  rounded-[8px] p-5'>
-          <div className='grid md:grid-cols-2 grid-cols-1 gap-10'>
-            <div className='flex items-center justify-center h-[300px] bg-cover bg-no-repeat rounded-[8px] relative' style={{ backgroundImage: `url(${banner})` }}>
-              <button
-                onClick={openVideoPlayer}
-                className='p-2 rounded-full bg-[#5a56e9] hover:bg-[#4a46d9] transition-colors'
-              >
-                <IoPlayCircleOutline size={50} color='#fff' />
-              </button>
-            </div>
+      {/**Hero section */}
+      <div className='container-fluid mx-auto'>
+        <div className='flex justify-center items-center  text-shadow-2xs'>
+          <h1 className='md:text-3xl text-lg p-5 text-center'>Crafting Luxury Italian Scarves, Ties & Pocket Squares Since 2004</h1>
+        </div>
+        <div
+          className="md:pt-30 pt-10 md:pb-40 pb-10 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${banner})` }}
+        >
+          <div className=" text-center w-full">
 
-            <div className='flex flex-col items-start justify-center space-y-2'>
-              <hr className='text-gray-400 md:w-120 w-80 border-0.5' />
-              <h2 className='md:text-[36px] text-[25px]  font-[600]  opacity-70 font-sans text-start'>Umbrella Custom Packaging</h2>
-              <p className='text-[#333333] md:text-[16px] leading-6 text-[14px] text-left'>
-                Umbrella Custom Packaging offers customized printing and packaging solutions for all your business needs.
-                We have technologically advanced digital and offset presses. It ensures that every packaging box we print
-                has supreme quality. Our accomplished designers provide amazing artwork choices for all kinds of boxes.
-                We don't charge our valued customers for design preparation
-              </p>
-            </div>
-          </div>
-          <div className=" bg-[#B8B6FA99]  grid sm:grid-cols-6  grid-cols-2 my-3.5 mt-3 p-4 rounded-md w-full">
-            <div className=" flex gap-1 items-center">
-              <img src={Icon1} width={30} alt="" />
-              <h5>Free Quote</h5>
-            </div>
-            <div className=" flex gap-1 items-center">
-              <img src={Icon2} width={30} alt="" />
-              <h5>Free Design support</h5>
-            </div>
-            <div className=" flex gap-1 items-center">
-              <img src={Icon3} width={30} alt="" />
-              <h5>Free Lamination</h5>
-            </div>
-            <div className=" flex gap-1 items-center">
-              <img src={Icon4} width={30} alt="" />
-              <h5>Free Shipping</h5>
-            </div>
-            <div className=" flex gap-1 items-center">
-              <img src={Icon5} width={30} alt="" />
-              <h5>FSC Certified</h5>
-            </div>
-            <div className=" flex gap-1 items-center">
-              <img src={Icon6} width={30} alt="" />
-              <h5>Quickest Turnaround</h5>
-            </div>
-          </div>
-          <div className='mt-5'>
-            <p className='text-left text-[16px] tracking-wide leading-6 '>The production team is very efficient which helps us in completing every task in minimum time span. Timely printing and shipment are the core values of our company. Umbrella Custom Packaging takes pride in delivering the best solution at reasonable price. Cardboard boxes, Kraft boxes, corrugated boxes, window boxes, die cut boxes and wedding boxes come under our range of expertise. From these box types, we accept the responsibility to manufacture spectacular packaging for electronics, food items, toys, cosmetics, etc. You name it and we have it. Umbrella Custom Packaging is a specialist in producing catchy customizations. Die cut, embossing, perforations, laminations, UV, glossy, matte and several other options are available for the designing of your customized packaging boxes. We use environment and consumer friendly stocks for manufacturing the boxes without compromising on excellence. Our competent work force enables us presenting impeccable printed designs and styles.<br /><br />
-
-              Umbrella Custom Packaging has been catering the packaging needs of thousands of businesses across the globe. We have achieved a magnanimous success in short period of time due to our premium printing services, fastest turnaround, free shipping and unique customized designing. Umbrella Custom Packaging is helping many macro and mini businesses in their packaging needs. For specific events, we offer exciting favor and gift boxes with special discounts. Customer satisfaction is our top priority. To facilitate the customers by cutting down their expenses, we not only print at our in-house press in USA but also utilize the offshore printing facilities in Asia and Africa. We look forward to hear from your business in the near future. Our customer care services are available around the clock. For custom quote or inquiry, feel free to contact our representatives from Monday-Friday.</p>
-          </div>
-
-          <CustomPackagingApart />
-          <div className='bg-[#F4ECFB] rounded-[8px] mt-8 p-3'>
-            <div className='grid md:grid-cols-2 grid-cols-1 space-y-2 '>
-              <div className='' >
-                <img src={map} alt="" className='w-full' />
-
-
-              </div>
-              <div className=' flex flex-col sm:w-md w-full ml-auto justify-center items-center  gap-3'>
-                <div className='flex sm:flex-row flex-col text-white gap-5 '>
-                  <div className='bg-[#5a56e9]  min-h-36 rounded-[8px] flex flex-col items-start p-2.5 space-y-5'>
-                    <h2 className='text-[32px] font-semibold text-white'>5+</h2>
-                    <h3 className='text-[14px] text-left text-white'>Head Quarter on Global Family</h3>
-                  </div>
-                  <div className='bg-[#5a56e9]  min-h-36  rounded-[8px] flex flex-col items-start p-2.5 space-y-5'>
-                    <h2 className='text-[32px] font-semibold text-white'>1000+</h2>
-                    <h3 className='text-[14px] text-left text-white'>Satisfied Customers All Over the Globe </h3>
-                  </div>
-                  <div></div>
-
-                </div>
-              </div>
-
-
-            </div>
-
-            <div className='grid md:grid-cols-3 grid-cols-1 '>
-              <div className='  flex flex-col justify-center items-start p-2.5 space-y-5 md:border-r-1 border-0'>
-                <h1 className='text-[32px] font-bold'>USA</h1>
-                <p className='text-[14px] text-start'>9854 National Blvd #1042, Los Angeles, CA 90034, United States</p>
-              </div>
-              <div className='  flex flex-col items-start p-2.5 space-y-5 md:border-r-1 border-0'>
-                <h1 className='text-[32px] font-bold'>Uk</h1>
-                <p className='text-[14px] text-start'>275 New North Road Islington Suite 1946 London, N1 7AA United Kingdom</p>
-              </div>
-              <div className='  flex flex-col items-start p-2.5 space-y-5'>
-                <h1 className='text-[32px] font-bold' >Canada</h1>
-                <p className='text-[14px] text-start'>7398 Yonge St #6d, Thornhill, ON L4J 8J2, Canada </p>
-              </div>
+            <div className="flex flex-col bg-[#ffffffca] justify-center items-center gap-4 md:p-10 p-2 rounded-md md:w-2xl w-[300px] mx-auto">
+              <h3 className="md:text-4xl text-lg font-semibold text-[#454444]  text-balance md:leading-10 leading-6">In a Tuscan village, life itself becomes inspiration art, culture, and tradition woven into every design</h3>
+              <span className="md:text-lg text-sm text-gray-500">Homepage / About Us</span>
 
             </div>
           </div>
+        </div>
+      </div>
+      {/**Main section */}
+      <div className='container-fluid'>
+        <div className='container mx-auto py-6'>
 
-          {isVideoOpen && (
-            <div className="fixed inset-0 bg-[rgba(0,0,0,0.9)] z-50 flex items-center justify-center p-4 ">
-              <div className="relative w-full max-w-6xl flex flex-col h-[90vh]">
-
-                <div className="flex justify-end mb-2">
-                  <button
-                    onClick={closeVideoPlayer}
-                    className=" rounded-full  cursor-pointer w-10 h-10 flex items-center justify-center"
-                    aria-label="Close video"
-                  >
-                    <h5 className="text-2xl text-white leading-none">&times;</h5>
-                  </button>
-                </div>
-
-                {/* Video Container */}
-                <div className="flex-1 relative rounded-xl overflow-hidden bg-black">
-                  <video
-                    controls
-                    autoPlay
-                    className="w-full h-full object-contain"
-                    playsInline
-                  >
-                    <source src={aboutVideo} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-
-              </div>
-            </div>
-          )}
+          <h1 className='md:text-3xl text-xl p-5 text-center font-semibold'>Slow Fashion. Fair Value.</h1>
 
         </div>
-      </main>
+        {/**section One */}
+        <div className='bg-[#f7f3ef]'>
+          <div className='container mx-auto md:p-10 p-5'>
+            <div className='grid md:grid-cols-2 grid-cols-1 gap-10'>
+              <div><img src={about1} alt="" className='w-full rounded-2xl shadow-2xl md:h-100 h-50 object-cover' /></div>
+              <div className='flex flex-col justify-center items-start gap-5'>
+                <h4 className='md:text-3xl text-2xl font-semibold capitalize text-balance'>It all started with a childhood in Rome</h4>
+                <p className='md:text-lg text-sm text-pretty'>Where my friends and I played in the piazzas and old streets which in the '60s and '70s  were populated with small artisanal shops where I shopped with my mother. My favorites were the fabric shops. I loved to sew and create things, and walls lined with rolls of fabrics fascinated me.</p>
+              </div>
+            </div>
+          </div>
+
+
+
+
+        </div>
+        {/**section two */}
+        <div className=''>
+          <div className='container mx-auto md:p-10 p-5'>
+            <div className='grid md:grid-cols-2 grid-cols-1 gap-10 reverse'>
+
+              <div className='flex flex-col justify-center items-start gap-5'>
+                <h4 className='md:text-3xl text-2xl font-semibold capitalize '>In 2003, during a trip to Lake Como, everything changed</h4>
+                <p className='md:text-lg text-sm text-pretty'>During that trip I had the good fortune to be introduced to the silk that Como is historically famous for, and some of the people who make it.A love affair was born along with a determination to bring Como silk to the USA where I was living at the time.In 2004, I opened the online boutique, selling women's scarves. It was a bit crazy, as at the time I did not even have a computer.</p>
+              </div>
+              <div><img src={about2} alt="" className='w-full rounded-2xl shadow-2xl md:h-100 h-50 object-cover' /></div>
+            </div>
+          </div>
+
+
+
+
+        </div>
+        {/**section three */}
+        <div className='bg-[#f7f3ef]'>
+          <div className='container mx-auto md:p-10 p-5'>
+            <div className='grid md:grid-cols-2 grid-cols-1 gap-10 reverse'>
+              <div><img src={about3} alt="" className='w-full rounded-2xl shadow-2xl md:h-100 h-50 object-cover' /></div>
+              <div className='flex flex-col justify-center items-start gap-5'>
+                <h4 className='md:text-3xl text-2xl font-semibold capitalize text-balance'>In 2020, my daughter Francesca joined me</h4>
+                <p className='md:text-lg text-sm text-pretty'>And together we made a new website together.Francesca lives in Germany and I live on a small organic farm in Le Marche, Italy. This is a photo taken from my front veranda.Living surrounded by nature is a continuous source of design inspiration for me.</p>
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+        </div>
+        <div className='container mx-auto py-6 text-center p-2'>
+          <div className=' flex flex-col justify-center items-center gap-5 md:p-10 p-5 bg-[#f7f3ef] rounded-2xl'>
+
+            <h1 className='md:text-4xl text-xl p-5 text-center font-bold capitalize'>Eco-conscious and fair labor</h1>
+            <p className='md:text-xl text-sm text-balance lg:w-250 md:w-auto w-auto font-semibold'>Every item in our boutique is made in sweatshop-free, eco-conscious, family-run businesses in Italy. I personally visit these workshops several times a year, and they have become a part of our family.</p>
+
+          </div>
+        </div>
+
+      </div>
+      {/**Meet Our Team Section */}
+      <div className='container mx-auto py-6 text-center'>
+        <div className=' flex flex-col justify-center items-center  '>
+
+          <h1 className='md:text-3xl text-xl p-5 text-center font-semibold'>Meet Our Team</h1>
+          <p className='md:text-lg text-sm text-balance lg:w-250 md:w-auto w-auto font-semibold text-center'>We are a small family-run business based in Italy and Germany, passionate about bringing you the finest Italian scarves, ties, and pocket squares.</p>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-6">
+          {teams.map((member, index) => (
+            <div key={index} className="flex flex-col justify-center items-start gap-2 p-5 group shadow rounded-2xl hover:shadow-lg transition-shadow duration-300">
+              <img src={member.image} alt={member.name} className="w-full object-cover rounded-lg shadow-lg" />
+
+              <h4
+                className="mt-3 font-semibold text-lg relative inline-block
+               after:content-[''] after:absolute after:left-0 after:bottom-0
+               after:h-[2px] after:w-0 after:bg-black
+               after:transition-all after:duration-300 
+               after:[transition-timing-function:cubic-bezier(0.215,0.61,0.355,1)]
+               group-hover:after:w-full group-hover:text-[#c5a980] cursor-pointer"
+              >
+                {member.name}
+              </h4>
+
+              <p className="text-sm text-gray-500">{member.role}</p>
+              <p className="text-start text-lg text-pretty">{member.bio}</p>
+            </div>
+
+          ))}
+        </div>
+
+
+
+      </div>
     </>
 
   )
 }
+
+export default About

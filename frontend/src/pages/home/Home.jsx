@@ -5,7 +5,11 @@ import ShopByCategories from '../../components/ShopByCategories'
 import Testimonials from '../../components/Testimonials'
 import ProductCard from '../../components/common/ProductCard'
 import PersonalStyle from '../../components/PersonalStyle/PersonalStyle'
-
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import who from '../../assets/images/2.webp'
+import how from '../../assets/images/1.webp'
+import where from '../../assets/images/3.webp'
 export const Home = () => {
 
   const metadata = {
@@ -92,7 +96,26 @@ export const Home = () => {
 
   };
 
+  
 
+
+  const [allProducts,setAllProducts] = useState([])
+
+
+  const fetchProducts = async()=>{
+    try {
+     const response = await axios.get(`${BaseUrl}/products/getAll`)
+
+     setAllProducts(response?.data?.data)
+    } catch (error) {
+      
+    }
+  }
+
+
+  useEffect(()=>{
+    fetchProducts()
+  },[])
      
 
   return (
@@ -102,16 +125,35 @@ export const Home = () => {
       <main>  
        <Hero/>
        <ShopByCategories/>
+         {/* Who / How / Where */}
+            <div className="max-w-7xl mx-auto px-4 md:px-0 pb-12">
+<div className='grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-8'>
+                 {[{img:who,label:"who",desc:"Handmade by Italian artisans, carrying generations of silk craftsmanship."},{img:how,label:"how",desc:"Sustainably produced with eco-friendly dyes and timeless design."},{img:where,label:"where",desc:"100% made in Italy, inspired by the country's rich heritage."}].map((item,i)=>(
+                   <div key={i} className='flex flex-col items-center p-10 text-center gap-4 bg-gray-50 rounded-xl hover:shadow-md transition-all duration-300'>
+                     <div className='bg-[#c5a980] p-2 rounded-full mb-2'>
+                       <img src={item.img} alt={item.label} width={90} height={90} className='object-cover transform transition-transform duration-300 hover:rotate-6'/>
+                     </div>
+                     <h4 className='text-3xl font-semibold capitalize'>{item.label}</h4>
+                     <p className='text-lg text-gray-600 text-pretty'>{item.desc}</p>
+                   </div>
+                 ))}
+               </div>
+            </div>
+               
         <div className=' max-w-7xl mx-auto'>
           <h2 className="text-3xl font-semibold text-center mb-10 text-gray-800">
         Recently Viewed & Bestsellers
       </h2>
 
           <div  className=' grid gap-6  grid-cols-4'>
-         <ProductCard/>
-          <ProductCard/>
-           <ProductCard/>
-            <ProductCard/>
+            {
+              allProducts?.map((item,index)=>{
+                return (
+                        <ProductCard key={item._id} product={item} />
+                )
+              })
+            }
+        
       </div>
         </div>
        <PersonalStyle/>

@@ -33,6 +33,10 @@ const blogSchema = new Schema({
     type: String,
     require: true,
   },
+  type: {
+    type: String,
+    require: true,
+  },
   image: {
     type: String,
     require: true,

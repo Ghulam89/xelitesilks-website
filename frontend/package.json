@@ -22,6 +22,7 @@
     "dompurify": "^3.2.6",
     "express": "^5.1.0",
     "formik": "^2.4.6",
+    "framer-motion": "^12.23.22",
     "jodit-react": "^5.2.19",
     "jsdom": "^26.1.0",
     "localforage": "^1.10.0",

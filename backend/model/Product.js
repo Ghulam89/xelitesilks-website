@@ -10,6 +10,14 @@ const productSchema = new Schema({
     type: String,
     require: true,
   },
+  inspiration:{
+     type: String,
+    require: true,
+  },
+  guide:{
+     type: String,
+    require: true,
+  },
   stock: {
     type: Number,
     default: 0,

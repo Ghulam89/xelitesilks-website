@@ -21,17 +21,11 @@ export async function render(url) {
   // Remove query parameters
   const baseUrl = cleanUrl.split('?')[0];
   try {
-    if (baseUrl.startsWith('/category/')) {
+    if (baseUrl.startsWith('/collections/')) {
       const slug = baseUrl.split('/')[2];
-      const response = await axios.get(`${BaseUrl}/brands/get?slug=${slug}`);
+      const response = await axios.get(`${BaseUrl}/collections/get?slug=${slug}`);
       serverData = response?.data?.data;
 
-    } else if (baseUrl.startsWith('/sub-category/')) {
-      const slug = baseUrl.split('/')[2];
-      const response = await axios.get(`${BaseUrl}/category/get?slug=${slug}`);
-      const response2 = await axios.get(  `${BaseUrl}/products/categoryProducts/${response?.data?.data?._id}`);
-      CategoryProducts = response2?.data?.data;
-      serverData = response?.data?.data;
     } else if (baseUrl.split('/').length === 2 && baseUrl !== '/') {
       const slug = baseUrl.split('/')[1];
       const response = await axios.get(`${BaseUrl}/products/get?slug=${slug}`);

@@ -129,94 +129,30 @@ export const createProducts = catchAsyncError(async (req, res, next) => {
   }
 });
 
-export const getBrandProductsByCategory = catchAsyncError(async (req, res, next) => {
+export const getCollectionByProducts = catchAsyncError(async (req, res, next) => {
   const collectionId = req.params.collectionId;
-
-  try {
-    const collection = await Collections.findById(collectionId);
-    if (!collection) {
-      return res.status(404).json({
-        status: "fail",
-        message: "Brand not found",
-      });
-    }
-    const productsByCategory = await Products.aggregate([
-       {
-        $match: {
-          collectionId: new mongoose.Types.ObjectId(collection)
-        }
-      },
-      {
-        $lookup: {
-          from: "midcategories",
-          localField: "categoryId",
-          foreignField: "_id",
-          as: "categoryInfo"
-        }
-      },
-      {
-        $unwind: {
-          path: "$categoryInfo",
-          preserveNullAndEmptyArrays: true
-        }
-      },
-      {
-        $group: {
-          _id: "$categoryInfo._id",
-          categoryName: { $first: "$categoryInfo.title" },
-          categoryImage: { $first: "$categoryInfo.image" },
-          categorySlug: { $first: "$categoryInfo.slug" },
-          products: {
-            $push: {
-              _id: "$_id",
-              name: "$name",
-              slug: "$slug",
-              price: "$price",
-              images: "$images",
-              actualPrice: "$actualPrice",
-              size: "$size",
-              description: "$description",
-
-            }
-          }
-        }
-      },
-      {
-        $match: {
-          _id: { $ne: null }
-        }
-      },
-      {
-        $project: {
-          _id: 1,
-          categoryName: 1,
-          categoryImage: 1,
-          categorySlug: 1,
-          products: 1,
-          productCount: { $size: "$products" }
-        }
-      },
-      {
-        $sort: { categoryName: 1 }
-      }
-    ]);
-
-    res.status(200).json({
-      status: "success",
-      data: {
-        brand: {
-          _id: brand._id,
-          name: brand.name,
-          image: brand.image,
-          slug: brand.slug,
-        },
-        categories: productsByCategory
-      }
+  const collection = await Collections.findById(collectionId);
+  if (!collection) {
+    return res.status(404).json({
+      status: "fail",
+      message: "Collection not found",
     });
-
-  } catch (error) {
-    next(error);
   }
+
+  const products = await Products.find({ collectionId: collection._id });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      collection: {
+        _id: collection._id,
+        name: collection.name,
+        slug: collection.slug,
+        image: collection.image,
+      },
+      products: products,
+    },
+  });
 });
 
 

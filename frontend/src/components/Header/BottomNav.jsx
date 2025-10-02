@@ -11,50 +11,50 @@ const BottomNav = ({ Menu, OpenMenu }) => {
     {
       id: 1,
       name: "MEN'S SCARVES",
-      slug: "mens-scarves",
+      slug: "mens-scarves-100-percent-made-in-italy",
       midcategories: [
-        { id: 101, title: "Bestsellers", slug: "mens-bestsellers" },
-        { id: 102, title: "All men's scarves", slug: "all-mens-scarves" },
-        { id: 103, title: "Just in", slug: "mens-just-in" },
-        { id: 104, title: "Long silk scarves", slug: "long-silk-scarves" },
-        { id: 105, title: "Silk neckerchiefs", slug: "silk-neckerchiefs" },
-        { id: 106, title: "Wool backed silk scarves", slug: "wool-backed-silk" },
-        { id: 107, title: "All wool scarves", slug: "all-wool-scarves" },
-        { id: 108, title: "Gift cards", slug: "gift-cards" }
+        { id: 101, title: "Bestsellers", slug: "mens-scarves-100-percent-made-in-italy" },
+        { id: 102, title: "All men's scarves", slug: "mens-scarves-100-percent-made-in-italy" },
+        { id: 103, title: "Just in", slug: "mens-scarves-100-percent-made-in-italy" },
+        { id: 104, title: "Long silk scarves", slug: "mens-scarves-100-percent-made-in-italy" },
+        { id: 105, title: "Silk neckerchiefs", slug: "mens-scarves-100-percent-made-in-italy" },
+        { id: 106, title: "Wool backed silk scarves", slug: "mens-scarves-100-percent-made-in-italy" },
+        { id: 107, title: "All wool scarves", slug: "mens-scarves-100-percent-made-in-italys" },
+        { id: 108, title: "Gift cards", slug: "mens-scarves-100-percent-made-in-italy" }
       ]
     },
     {
       id: 2,
       name: "WOMEN'S SCARVES",
-      slug: "womens-scarves",
+      slug: "mens-scarves-100-percent-made-in-italy",
       midcategories: [
-        { id: 201, title: "Bestsellers", slug: "womens-bestsellers" },
-        { id: 202, title: "All women's scarves", slug: "all-womens-scarves" },
-        { id: 203, title: "New arrivals", slug: "womens-new-arrivals" },
-        { id: 204, title: "Silk scarves", slug: "silk-scarves" },
-        { id: 205, title: "Cashmere scarves", slug: "cashmere-scarves" }
+        { id: 201, title: "Bestsellers", slug: "mens-scarves-100-percent-made-in-italy" },
+        { id: 202, title: "All women's scarves", slug: "mens-scarves-100-percent-made-in-italy" },
+        { id: 203, title: "New arrivals", slug: "mens-scarves-100-percent-made-in-italy" },
+        { id: 204, title: "Silk scarves", slug: "mens-scarves-100-percent-made-in-italy" },
+        { id: 205, title: "Cashmere scarves", slug: "mens-scarves-100-percent-made-in-italy" }
       ]
     },
     {
       id: 3,
       name: "TIES",
-      slug: "ties",
+      slug: "mens-scarves-100-percent-made-in-italy",
       midcategories: [
-        { id: 301, title: "Silk ties", slug: "silk-ties" },
-        { id: 302, title: "Knit ties", slug: "knit-ties" },
-        { id: 303, title: "Bow ties", slug: "bow-ties" }
+        { id: 301, title: "Silk ties", slug: "mens-scarves-100-percent-made-in-italy" },
+        { id: 302, title: "Knit ties", slug: "mens-scarves-100-percent-made-in-italy" },
+        { id: 303, title: "Bow ties", slug: "mens-scarves-100-percent-made-in-italy" }
       ]
     },
     {
       id: 4,
       name: "POCKET SQUARES",
-      slug: "pocket-squares",
+      slug: "mens-scarves-100-percent-made-in-italy",
       midcategories: []
     },
     {
       id: 5,
       name: "ASCOTS",
-      slug: "ascots",
+      slug: "mens-scarves-100-percent-made-in-italy",
       midcategories: []
     },
     {
@@ -104,7 +104,7 @@ const BottomNav = ({ Menu, OpenMenu }) => {
             >
               <NavLink
                 onClick={handleCategoryLeave}
-                to={`/category/${category.slug}`}
+                to={`/collections/${category.slug}`}
                 className="flex items-center gap-1 text-[#333333] hover:text-[#C5A980] uppercase py-2.5  font-medium transition-colors"
               >
                 {category.name}
@@ -131,7 +131,7 @@ const BottomNav = ({ Menu, OpenMenu }) => {
                         <NavLink
                           key={submenu.id}
                           onClick={handleCategoryLeave}
-                          to={`/sub-category/${submenu.slug}`}
+                          to={`collections/${submenu.slug}`}
                           className="font-semibold text-[#333333] px-4 py-2 capitalize transition-colors hover:text-[#C5A980] hover:bg-gray-50 border-b border-gray-50  "
                         >
                           {submenu.title}

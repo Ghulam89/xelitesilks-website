@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import logo from "../../assets/images/xelite silk.svg";
 import BottomNav from "./BottomNav";
 import { Link } from "react-router-dom";
+import PopupLoginSignUp from "../../pages/auth/PopupLoginSignUp";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
+  const [showModel,setShowModel] = useState(false)
   const OpenMenu = () => {
     setMenu(!menu);
   };
@@ -81,7 +83,7 @@ const Navbar = () => {
               </Link>
             </li>
              <li className=" sm:block  hidden">
-              <Link to={''} className="flex flex-col items-center group">
+              <Link to={''} onClick={()=>setShowModel(true)} className="flex flex-col items-center group">
                 <div className="text-gray-700 group-hover:text-[#C5A980] transition-colors duration-200">
                   <svg width={20} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
                     <g id="avatar">
@@ -93,7 +95,7 @@ const Navbar = () => {
               </Link>
             </li>
              <li>
-              <Link to={''} className="flex flex-col items-center group">
+              <Link to={'/cart'} className="flex flex-col items-center group">
                 <div className="text-gray-700 group-hover:text-[#C5A980] transition-colors duration-200">
                   <svg width={20} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
                     <g id="bag">
@@ -111,6 +113,9 @@ const Navbar = () => {
         </div>
 
         <BottomNav Menu={menu} OpenMenu={OpenMenu} />
+
+                          {showModel && <PopupLoginSignUp onClose={()=>setShowModel(false)}/>}
+
       </div>
 
     

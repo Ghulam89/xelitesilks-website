@@ -6,6 +6,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BaseUrl } from "../utils/BaseUrl";
 import Blogs from "../pages/blogs/Blogs";
+import ContactUs from "../pages/contactUs/ContactUs";
+import About from "../pages/about/About";
+import SingleBlog from "../pages/blogs/SingleBlog";
+import Category from "../pages/category/Category";
+import Cart from "../pages/cart/Cart";
 
 export default function WebsiteRoutes({ serverData, CategoryProducts }) {
  const location = useLocation();
@@ -37,28 +42,31 @@ function ProductDetailsWrapper({ serverData }) {
   }, [slug, serverData]);
 
   // if (loading) return <div>Loading...</div>;
-  if (!loading && (error || !productData)) return <NotFound />;
+  // if (!loading && (error || !productData)) return <NotFound />;
   
   return <ProductDetails serverData={productData} />;
 }
   return [
     { path: '/', element: <Home key="home" /> },
     { path: '/blogs', element: <Blogs key="blog" /> },
-        { path: '/404', element: <NotFound key="not-found" /> },
-        // {
-        //   path: '/category/:slug',
-        //   element: <Category
-        //     key={location.pathname}
-        //     serverData={serverData}
-        //   />
-        // },
-        // {
-        //   path: '/blog/:slug',
-        //   element: <SingleBlog
-        //     key={location.pathname}
-        //     serverData={serverData}
-        //   />
-        // },
+    { path: '/cart', element: <Cart key="cart" /> },
+    { path: '/contact-us', element: <ContactUs key="contact-us" /> },
+    { path: '/about-us', element: <About key="about-us" /> },
+        // { path: '/404', element: <NotFound key="not-found" /> },
+        {
+          path: '/collections/:slug',
+          element: <Category
+            key={location.pathname}
+            serverData={serverData}
+          />
+        },
+        {
+          path: '/blog/:slug',
+          element: <SingleBlog
+            key={location.pathname}
+            serverData={serverData}
+          />
+        },
        
       {
       path: '/:slug',
@@ -69,7 +77,7 @@ function ProductDetailsWrapper({ serverData }) {
         />
       )
     },
-        { path: '*', element: <NotFound/> }
+        // { path: '*', element: <NotFound/> }
   ];
 }
 
