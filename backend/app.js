@@ -121,59 +121,18 @@ if (isProduction) {
   }
 }
 
-// Cache for rendered pages with LRU strategy
-const ssrCache = new Map();
-const CACHE_TTL = 1000 * 60 * 5; // 5 minutes cache
-const MAX_CACHE_SIZE = 100; // Limit cache size to prevent memory issues
 
-// Function to generate cache key from request
-function getCacheKey(req) {
-  return req.originalUrl;
-}
-
-// Function to clean up cache periodically
-function cleanCache() {
-  const now = Date.now();
-  for (const [key, value] of ssrCache.entries()) {
-    if (value.expiry < now) {
-      ssrCache.delete(key);
-    }
-  }
-  
-  // Enforce size limit
-  if (ssrCache.size > MAX_CACHE_SIZE) {
-    const entries = Array.from(ssrCache.entries());
-    // Remove oldest entries (first in the array)
-    for (let i = 0; i < entries.length - MAX_CACHE_SIZE; i++) {
-      ssrCache.delete(entries[i][0]);
-    }
-  }
-}
-
-// Run cleanup every minute
-setInterval(cleanCache, 60000);
-
-// SSR middleware with caching and timeout (must be last)
 app.use('*', async (req, res, next) => {
   const startTime = Date.now();
   const url = req.originalUrl.replace(base, '') || '/';
   
-  // Skip SSR for API routes and static files
   if (url.startsWith('/api/') || 
       url.startsWith('/_vite') || 
       url.includes('.') && !url.endsWith('/')) {
     return next();
   }
   
-  // Check cache first
-  const cacheKey = getCacheKey(req);
-  const cached = ssrCache.get(cacheKey);
-  
-  if (cached && cached.expiry > Date.now()) {
-    res.set(cached.headers).status(200).send(cached.html);
-    console.log(`SSR Cache hit for ${url}: ${Date.now() - startTime}ms`);
-    return;
-  }
+
   
   let template, render;
   let rendered = { html: '', helmet: {}, serverData: {} };
@@ -221,13 +180,7 @@ app.use('*', async (req, res, next) => {
         `<script>window.__SERVER_DATA__ = ${JSON.stringify(rendered.serverData || {})}</script>`
       );
     
-    if (isProduction && res.statusCode === 200) {
-      ssrCache.set(cacheKey, {
-        html,
-        headers: { 'Content-Type': 'text/html' },
-        expiry: Date.now() + CACHE_TTL
-      });
-    }
+   
     
     res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
     console.log(`SSR completed for ${url}: ${Date.now() - startTime}ms`);
