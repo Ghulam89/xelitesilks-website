@@ -41,6 +41,7 @@ import { FaStar } from 'react-icons/fa'
 import FaqComp from '../../components/common/FaqComp'
 import SingleProductTabs from '../../components/common/SingleProductTabs'
 import AddToCartSideMenu from '../../components/common/AddToCartSideMenu'
+import ReviewCard from '../../components/common/ReviewCard'
 
 const ProductDetails = ({
   serverData,
@@ -202,7 +203,10 @@ const ProductDetails = ({
 
   const fetchRelatedProducts = async () => {
     const response = await axios.get(`${BaseUrl}/products/related-products?slug=${slug}`)
-    setRelatedProduct(response?.data?.data)
+
+    console.log(response);
+    
+    setRelatedProduct(response?.data?.data?.relatedProducts)
   }
 
   useEffect(() => {
@@ -284,6 +288,31 @@ const ProductDetails = ({
       },
     }
   };
+
+
+  
+const reviews = [
+  {
+    name: 'Mark D.',
+    text: 'Beautiful peace  i love it',
+  },
+  {
+    name: 'Janet G.',
+    text: 'This is our 8th scarf purchase, and as always...absolutely BEAUTIFUL! We only order from here as we know the colors and quality will be OUTSTANDING! Very happy regular customers!',
+  },
+  {
+    name: 'Bob Y.',
+    text: 'Amazing work and so beautiful',
+  },
+  {
+    name: 'Dave B.',
+    text: 'I buy a birthday gift for my husband and 3 middle shed sons they love it',
+  },
+  {
+    name: 'Don W.',
+    text: 'I have accrued quite a few Elizabetta scarves over the years; they continue to impress and this one is no exception. I have the Savona in all three colors having recently purchased the burgundy edition. Simple and elegant, works great with a jacket or cardigan. Makes one anticipate cooler days ahead. Good stuff and a great addition to a gent’s wardrobe.',
+  },
+];
 
   return (
     <>
@@ -441,6 +470,34 @@ const ProductDetails = ({
           </div>
         </div>
 
+
+         <div className="">
+      <div className="max-w-7xl mx-auto pt-12">
+        <div className="flex items-center space-x-2 mb-4">
+          <div className="flex text-yellow-500">
+            {Array(5).fill().map((_, i) => (
+              <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+              </svg>
+            ))}
+          </div>
+          <p className="text-gray-800 font-medium">41 Reviews</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {reviews.map((r, i) => (
+            <ReviewCard key={i} name={r.name} text={r.text} />
+          ))}
+        </div>
+
+        <div className="text-center mt-6">
+          <button className="px-4 py-2 text-sm border rounded hover:bg-gray-100 transition">
+            Show more reviews
+          </button>
+        </div>
+      </div>
+    </div>
+
         {/* Rest of your component remains the same... */}
         {/* Section with alternate bg */}
         <div className="bg-gray-50 rounded-md py-16 mt-16">
@@ -483,7 +540,7 @@ const ProductDetails = ({
 
         {/* Related / Tabs */}
         <div className='mt-16'>
-          <SingleProductTabs />
+          <SingleProductTabs relatedProduct={relatedProduct} />
         </div>
       </div>
 

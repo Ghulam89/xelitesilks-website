@@ -23,6 +23,8 @@ import master from '../../assets/images/master.png';
 import amax from '../../assets/images/amax.png';
 import paypal from '../../assets/images/paypal.png';
 import discover from '../../assets/images/discover.png';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -109,29 +111,78 @@ const Footer = () => {
           <p className="text-sm text-gray-600 mb-3">
             Sign up for our newsletter and get 10% off your first purchase
           </p>
-          <form onSubmit={handleSubscribe} className=" gap-2 relative">
-            <Input
-              placeholder="Enter your email"
-              className="border border-gray-300 rounded-full px-3 py-3 w-full"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              required
-            />
-            <button
-             
-              className="bg-black absolute right-2 top-2 text-white  w-10 h-10 rounded-full"
-              type="submit"
-              disabled={loading}
-            >
-{loading ? "..." : "→"}
-            </button>
-          </form>
-          <p className="text-xs flex  gap-1  items-center text-gray-500 mt-2">
-            <Input  type={'checkbox'} /> By clicking subscribe, you agree to our{" "}
-            <Link to="/terms-and-conditions" className="underline">Terms</Link>{" "}
-            and <Link to="/privacy-policy" className="underline">Privacy Policy</Link>.
-          </p>
+          
+  <Formik
+    initialValues={{ email: "", agree: false }}
+    validationSchema={Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
+      agree: Yup.bool().oneOf([true], "You must agree to the terms"),
+    })}
+    onSubmit={async (values, { setSubmitting, resetForm }) => {
+      try {
+        const response = await axios.post(`${BaseUrl}/subscribe/create`, {
+          email: values.email,
+        });
+
+        if (response.data.status === "success") {
+          toast.success(response.data.message);
+          resetForm();
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.response?.data?.message || "Something went wrong.");
+      } finally {
+        setSubmitting(false);
+      }
+    }}
+  >
+    {({ isSubmitting }) => (
+      <Form className="relative">
+        <Field
+          name="email"
+          type="email"
+          placeholder="Enter your email"
+          className="border border-gray-300 rounded-full px-3 py-3 w-full"
+        />
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="bg-black absolute   cursor-pointer right-2 top-1 text-white w-10 h-10 rounded-full"
+        >
+          {isSubmitting ? "..." : "→"}
+        </button>
+        <ErrorMessage
+          name="email"
+          component="div"
+          className="text-xs text-red-500 mt-1"
+        />
+
+        {/* Checkbox and Terms */}
+        <div className="flex items-start mt-3 text-xs text-gray-600 gap-2">
+          <Field type="checkbox" name="agree" className="mt-1" />
+          <label>
+            By clicking subscribe, you agree to our{" "}
+            <Link to="/terms-and-conditions" className="underline">
+              Terms
+            </Link>{" "}
+            and{" "}
+            <Link to="/privacy-policy" className="underline">
+              Privacy Policy
+            </Link>.
+          </label>
+        </div>
+        <ErrorMessage
+          name="agree"
+          component="div"
+          className="text-xs text-red-500 mt-1"
+        />
+      </Form>
+    )}
+  </Formik>
+         
         </div>
       </div>
 

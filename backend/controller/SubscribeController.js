@@ -1,5 +1,6 @@
 import { catchAsyncError } from "../middleware/catchAsyncError.js";
 import { Subscribe } from "../model/subscribe.js";
+
 export const subscribeCreation = catchAsyncError(async (req, res, next) => {
   const data = req.body;
   const email = data?.email;

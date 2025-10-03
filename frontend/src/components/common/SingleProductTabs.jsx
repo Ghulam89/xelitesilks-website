@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import ProductCard from './ProductCard';
 
-function SingleProductTabs() {
+function SingleProductTabs({relatedProduct}) {
+    console.log(relatedProduct);
+    
+
+   
+
     const [activeTab, setActiveTab] = React.useState(0);
     const tab = [
         <h2>Ralated Products</h2>,
@@ -8,9 +14,25 @@ function SingleProductTabs() {
     ];
 
     const content = [
-        <div>Products Ralated</div>,
+        <div>
+            <div className=' grid grid-cols-3'>
+
+                {
+                    relatedProduct?.map((item,index)=>{
+                        return (
+                            <ProductCard product={item} />
+                        )
+                    })
+                }
+
+            </div>
+        </div>,
         <div>Products Recently</div>,
     ]
+
+
+
+
 
   return (
     <div>

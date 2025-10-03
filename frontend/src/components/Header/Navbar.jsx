@@ -3,9 +3,11 @@ import logo from "../../assets/images/xelite silk.svg";
 import BottomNav from "./BottomNav";
 import { Link } from "react-router-dom";
 import PopupLoginSignUp from "../../pages/auth/PopupLoginSignUp";
+import PopupSearchModal from "./PopupSearchModal";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
+  const [showSearchModal, setShowSearchModal] = useState(false);
   const [showModel,setShowModel] = useState(false)
   const OpenMenu = () => {
     setMenu(!menu);
@@ -71,9 +73,9 @@ const Navbar = () => {
           <div className="">
            <ul className="flex md:gap-6 gap-2 items-center">
             <li >
-              <Link to={''} className="flex flex-col items-center group">
-                <div className="text-gray-700 group-hover:text-[#C5A980] transition-colors duration-200">
-                  <svg width={20} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+              <Link  onClick={()=>setShowSearchModal(true)} to={''} className="flex flex-col items-center group">
+                <div  className="text-gray-700 group-hover:text-[#C5A980] transition-colors duration-200">
+                  <svg   width={20} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
                     <g id="search"> 
                       <path  d="M93.26,93.59l-23.94-24a38,38,0,1,0-3.16,2.5L90.44,96.41a2,2,0,0,0,2.82-2.82ZM10.15,41.06A34.07,34.07,0,1,1,44.21,75.13,34.1,34.1,0,0,1,10.15,41.06Z"></path>
                     </g>
@@ -115,6 +117,10 @@ const Navbar = () => {
         <BottomNav Menu={menu} OpenMenu={OpenMenu} />
 
                           {showModel && <PopupLoginSignUp onClose={()=>setShowModel(false)}/>}
+
+                            {showSearchModal && <PopupSearchModal onClose={() => setShowSearchModal(false)} />}
+
+
 
       </div>
 
