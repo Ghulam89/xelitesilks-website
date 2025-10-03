@@ -191,7 +191,7 @@ app.use('*', async (req, res, next) => {
         render = (await vite.ssrLoadModule('../frontend/src/entry-server.jsx')).render;
       } catch (error) {
         console.error('Vite development error:', error);
-        return sendErrorResponse(res, 'Development server error');
+        // return sendErrorResponse(res, 'Development server error');
       }
     } else if (isProduction && productionTemplate && productionRender) {
       // Production mode
@@ -199,7 +199,7 @@ app.use('*', async (req, res, next) => {
       render = productionRender;
     } else {
       // Server not ready
-      return sendErrorResponse(res, 'Server not ready yet');
+      // return sendErrorResponse(res, 'Server not ready yet');
     }
     
     const renderPromise = render(url);
@@ -244,11 +244,11 @@ app.use('*', async (req, res, next) => {
         
         res.status(200).set({ 'Content-Type': 'text/html' }).send(fallbackHtml);
       } else {
-        sendErrorResponse(res, 'SSR timeout and no template available');
+        // sendErrorResponse(res, 'SSR timeout and no template available');
       }
     } else {
       console.error('SSR Error:', e.stack);
-      sendErrorResponse(res, 'Server rendering error');
+      // sendErrorResponse(res, 'Server rendering error');
     }
   }
 });
