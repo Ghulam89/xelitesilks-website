@@ -10,13 +10,14 @@ import { useEffect, useState } from 'react'
 import who from '../../assets/images/2.webp'
 import how from '../../assets/images/1.webp'
 import where from '../../assets/images/3.webp'
+import PageMetadata from '../../components/common/PageMetadata'
 export const Home = () => {
 
   const metadata = {
-    title: "Affordable, High-Quality Custom Packaging Boxes – Wholesale | Umbrella Custom Packaging",
-    description: "Get high-quality custom packaging boxes at wholesale prices. We offer affordable packaging for businesses of all sizes. Enjoy bulk discounts, free design support, and fast shipping.",
-    keywords: "custom packaging, wholesale boxes, packaging solutions, affordable packaging, custom boxes, packaging design, eco-friendly packaging",
-    author: "Umbrella Custom Packaging",
+    title: "",
+    description: "",
+    keywords: "",
+    author: "",
     canonicalUrl: BaseUrl,
     ogUrl: BaseUrl,
     ogImage: `${BaseUrl}/images/web-banner.webp`,
@@ -120,7 +121,7 @@ export const Home = () => {
 
   return (
     <>
-      {/* <PageMetadata {...metadata} /> */}
+      <PageMetadata {...metadata} />
  
       <main>  
        <Hero/>
