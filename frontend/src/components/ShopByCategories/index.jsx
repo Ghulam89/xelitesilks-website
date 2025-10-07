@@ -1,67 +1,87 @@
 import React from "react";
+import cat1 from '../../assets/images/collection/cat1.jpeg';
+import cat2 from '../../assets/images/collection/cat2.jpg';
+import cat3 from '../../assets/images/collection/cat3.jpeg';
+import cat4 from '../../assets/images/collection/cat4.jpeg';
 
 const ShopByCategories = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-0 py-12">
-      <h2 className="text-3xl font-semibold text-center mb-10 text-gray-800">
+      <h2 className="sm:text-3xl text-2xl font-semibold text-center mb-10 text-gray-800">
         Shop By Categories
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        {/* Left - Women */}
-        <div className="relative rounded-xl overflow-hidden shadow-sm">
+        
+        {/* Left - Shawls & Wraps */}
+        <div className="relative group rounded-xl overflow-hidden shadow-md transition-transform duration-300 hover:scale-105 cursor-pointer">
           <img
-            src="https://elizabetta.net/cdn/shop/files/luxury-silk-shawls_400x.svg?v=1746461148"
-            alt="Women"
-            className="w-full h-full  object-cover"
+            src={cat1}
+            alt="Shawls & Wraps"
+            className="w-full h-full object-cover"
           />
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
-            <h4 className="bg-white text-gray-800  font-medium py-2 px-5 rounded-full shadow-md">
-              Women 
-            </h4>
+            <button
+              aria-label="Shop Shawls & Wraps"
+              className="bg-white text-gray-800 text-sm font-semibold py-2 px-6 rounded-full shadow transition-all duration-300 group-hover:bg-gray-800 group-hover:text-white"
+            >
+              Shawls & Wraps
+            </button>
           </div>
         </div>
 
-        {/* Middle - 2 stacked (Promotion + Accessories) */}
+        {/* Middle - Long Scarves & Handmade Ties */}
         <div className="grid grid-rows-2 gap-6">
-          <div className="relative rounded-xl overflow-hidden shadow-sm">
+
+          {/* Long Scarves */}
+          <div className="relative group w-full h-64 rounded-xl overflow-hidden shadow-md transition-transform duration-300 hover:scale-105 cursor-pointer">
             <img
-              src="https://modavereact.vercel.app/images/collections/grid-cls/promotion-cls.jpg"
-              alt="Promotion"
-              className="w-full  object-cover"
+              src={cat3}
+              alt="Long Scarves"
+              className="w-full h-full object-cover"
             />
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
-              <span className="bg-white text-gray-800 text-sm font-medium py-2 px-5 rounded-full shadow-md">
-                Promotion
-              </span>
+              <button
+                aria-label="Shop Long Scarves"
+                className="bg-white text-gray-800 text-sm font-semibold py-2 px-6 rounded-full shadow transition-all duration-300 group-hover:bg-gray-800 group-hover:text-white"
+              >
+                Long Scarves
+              </button>
             </div>
           </div>
 
-          <div className="relative rounded-xl overflow-hidden shadow-sm">
+          {/* Handmade Ties */}
+          <div className="relative group w-full h-64 rounded-xl overflow-hidden shadow-md transition-transform duration-300 hover:scale-105 cursor-pointer">
             <img
-              src="https://modavereact.vercel.app/images/collections/grid-cls/accessories-cls.jpg"
-              alt="Accessories"
-              className="w-full object-cover"
+              src={cat4}
+              alt="Handmade Ties"
+              className="w-full h-full object-cover"
             />
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
-              <span className="bg-white text-gray-800 text-sm font-medium py-2 px-5 rounded-full shadow-md">
-                Accessories
-              </span>
+              <button
+                aria-label="Shop Handmade Ties"
+                className="bg-white text-gray-800 text-sm font-semibold py-2 px-6 rounded-full shadow transition-all duration-300 group-hover:bg-gray-800 group-hover:text-white"
+              >
+                Handmade Ties
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Right - Men */}
-        <div className="relative rounded-xl overflow-hidden shadow-sm">
+        {/* Right - Men's Scarves */}
+        <div className="relative group rounded-xl overflow-hidden shadow-md transition-transform duration-300 hover:scale-105 cursor-pointer">
           <img
-            src="https://modavereact.vercel.app/images/collections/grid-cls/men-cls.jpg"
-            alt="Men"
-            className="w-full  object-cover"
+            src={cat2}
+            alt="Men's Scarves"
+            className="w-full h-full object-cover"
           />
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
-            <span className="bg-white text-gray-800 text-sm font-medium py-2 px-5 rounded-full shadow-md">
-              Men
-            </span>
+            <button
+              aria-label="Shop Men's Scarves"
+              className="bg-white text-gray-800 text-sm font-semibold py-2 px-6 rounded-full shadow transition-all duration-300 group-hover:bg-gray-800 group-hover:text-white"
+            >
+              Men's Scarves
+            </button>
           </div>
         </div>
       </div>

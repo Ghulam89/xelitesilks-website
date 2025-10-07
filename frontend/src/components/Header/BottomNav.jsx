@@ -11,50 +11,50 @@ const BottomNav = ({ Menu, OpenMenu }) => {
     {
       id: 1,
       name: "MEN'S SCARVES",
-      slug: "mens-scarves-100-percent-made-in-italy",
+      slug: "collections/mens-scarves-100-percent-made-in-italy",
       midcategories: [
-        { id: 101, title: "Bestsellers", slug: "mens-scarves-100-percent-made-in-italy" },
-        { id: 102, title: "All men's scarves", slug: "mens-scarves-100-percent-made-in-italy" },
-        { id: 103, title: "Just in", slug: "mens-scarves-100-percent-made-in-italy" },
-        { id: 104, title: "Long silk scarves", slug: "mens-scarves-100-percent-made-in-italy" },
-        { id: 105, title: "Silk neckerchiefs", slug: "mens-scarves-100-percent-made-in-italy" },
-        { id: 106, title: "Wool backed silk scarves", slug: "mens-scarves-100-percent-made-in-italy" },
-        { id: 107, title: "All wool scarves", slug: "mens-scarves-100-percent-made-in-italys" },
-        { id: 108, title: "Gift cards", slug: "mens-scarves-100-percent-made-in-italy" }
+        { id: 101, title: "Bestsellers", slug: "collections/mens-scarves-100-percent-made-in-italy" },
+        { id: 102, title: "All men's scarves", slug: "collections/mens-scarves-100-percent-made-in-italy" },
+        { id: 103, title: "Just in", slug: "collections/mens-scarves-100-percent-made-in-italy" },
+        { id: 104, title: "Long silk scarves", slug: "collections/mens-scarves-100-percent-made-in-italy" },
+        { id: 105, title: "Silk neckerchiefs", slug: "collections/mens-scarves-100-percent-made-in-italy" },
+        { id: 106, title: "Wool backed silk scarves", slug: "collections/mens-scarves-100-percent-made-in-italy" },
+        { id: 107, title: "All wool scarves", slug: "collections/mens-scarves-100-percent-made-in-italys" },
+        { id: 108, title: "Gift cards", slug: "collections/mens-scarves-100-percent-made-in-italy" }
       ]
     },
     {
       id: 2,
       name: "WOMEN'S SCARVES",
-      slug: "mens-scarves-100-percent-made-in-italy",
+      slug: "collections/mens-scarves-100-percent-made-in-italy",
       midcategories: [
-        { id: 201, title: "Bestsellers", slug: "mens-scarves-100-percent-made-in-italy" },
-        { id: 202, title: "All women's scarves", slug: "mens-scarves-100-percent-made-in-italy" },
-        { id: 203, title: "New arrivals", slug: "mens-scarves-100-percent-made-in-italy" },
-        { id: 204, title: "Silk scarves", slug: "mens-scarves-100-percent-made-in-italy" },
-        { id: 205, title: "Cashmere scarves", slug: "mens-scarves-100-percent-made-in-italy" }
+        { id: 201, title: "Bestsellers", slug: "collections/mens-scarves-100-percent-made-in-italy" },
+        { id: 202, title: "All women's scarves", slug: "collections/mens-scarves-100-percent-made-in-italy" },
+        { id: 203, title: "New arrivals", slug: "collections/mens-scarves-100-percent-made-in-italy" },
+        { id: 204, title: "Silk scarves", slug: "collections/mens-scarves-100-percent-made-in-italy" },
+        { id: 205, title: "Cashmere scarves", slug: "collections/mens-scarves-100-percent-made-in-italy" }
       ]
     },
     {
       id: 3,
       name: "TIES",
-      slug: "mens-scarves-100-percent-made-in-italy",
+      slug: "collections/mens-scarves-100-percent-made-in-italy",
       midcategories: [
-        { id: 301, title: "Silk ties", slug: "mens-scarves-100-percent-made-in-italy" },
-        { id: 302, title: "Knit ties", slug: "mens-scarves-100-percent-made-in-italy" },
-        { id: 303, title: "Bow ties", slug: "mens-scarves-100-percent-made-in-italy" }
+        { id: 301, title: "Silk ties", slug: "collections/mens-scarves-100-percent-made-in-italy" },
+        { id: 302, title: "Knit ties", slug: "collections/mens-scarves-100-percent-made-in-italy" },
+        { id: 303, title: "Bow ties", slug: "collections/mens-scarves-100-percent-made-in-italy" }
       ]
     },
     {
       id: 4,
       name: "POCKET SQUARES",
-      slug: "mens-scarves-100-percent-made-in-italy",
+      slug: "collections/mens-scarves-100-percent-made-in-italy",
       midcategories: []
     },
     {
       id: 5,
       name: "ASCOTS",
-      slug: "mens-scarves-100-percent-made-in-italy",
+      slug: "collections/mens-scarves-100-percent-made-in-italy",
       midcategories: []
     },
     {
@@ -104,7 +104,7 @@ const BottomNav = ({ Menu, OpenMenu }) => {
             >
               <NavLink
                 onClick={handleCategoryLeave}
-                to={`/collections/${category.slug}`}
+                to={`/${category.slug}`}
                 className="flex items-center gap-1 text-[#333333] hover:text-[#C5A980] uppercase py-2.5  font-medium transition-colors"
               >
                 {category.name}
@@ -131,7 +131,7 @@ const BottomNav = ({ Menu, OpenMenu }) => {
                         <NavLink
                           key={submenu.id}
                           onClick={handleCategoryLeave}
-                          to={`collections/${submenu.slug}`}
+                          to={`/${submenu.slug}`}
                           className="font-semibold text-[#333333] px-4 py-2 capitalize transition-colors hover:text-[#C5A980] hover:bg-gray-50 border-b border-gray-50  "
                         >
                           {submenu.title}

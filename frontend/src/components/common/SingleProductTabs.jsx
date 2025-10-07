@@ -46,7 +46,7 @@ function SingleProductTabs({relatedProduct}) {
                          <button
                          key={index}
                         onClick={()=>setActiveTab(index)}
-                        className={`md:text-3xl text-lg whitespace-nowrap leading-10 font-semibold  transition-all ease-in-out duration-300  ${activeTab === index ? 'border-b-2' : 'border-b-0'} ` }
+                        className={`md:text-3xl text-md whitespace-nowrap leading-10 font-semibold  transition-all ease-in-out duration-300  ${activeTab === index ? 'border-b-2' : 'border-b-0'} ` }
                          >{item}</button>
 
                     </div>

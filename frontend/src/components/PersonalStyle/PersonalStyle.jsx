@@ -10,7 +10,7 @@ export default function PersonalStyle() {
 
 
       {/* Craftsmanship Section */}
-      <section className="py-12  mt-16 bg-[#f7f3ef]">
+      <section className="py-12  px-3 mt-16 bg-[#f7f3ef]">
         <div className="  max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="md:w-1/2 mb-10 md:mb-0 md:pr-10">
             <h2 className="text-3xl font-serif mb-6">Xelite Silks: Over Story</h2>
@@ -34,7 +34,7 @@ export default function PersonalStyle() {
 
           </div>
           <div className="md:w-1/2  flex items-center justify-center">
-            <div className=' w-10/12'>
+            <div className=' sm:w-10/12 w-12/12'>
                   <video
                                controls
                                autoPlay
@@ -59,7 +59,7 @@ our personal style</h2>
           </div>
           
 
-          <div className=' grid grid-cols-3 gap-5 mt-10'>
+          <div className=' grid sm:grid-cols-3 grid-cols-1 gap-5 mt-10'>
             <div className=" bg-[#F7F3EF] px-5 py-8 rounded-lg">
           <h2 className="text-2xl font-serif mb-5">Italian craftsmanship</h2>
           <p className="mb-4">

@@ -55,7 +55,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#fff] border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-6 sm:grid-cols-2 grid-cols-1 gap-10">
+      <div className="max-w-7xl mx-auto sm:px-6 px-3 py-10 grid md:grid-cols-6 sm:grid-cols-2 grid-cols-1 gap-10">
         
         {/* Left - Logo + Contact */}
         <div className=" col-span-2">

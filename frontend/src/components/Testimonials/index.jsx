@@ -48,7 +48,7 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8">
+    <section className="py-12 px-2 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-10 text-center">
           Our Happy Customers
