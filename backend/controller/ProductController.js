@@ -140,69 +140,60 @@ export const getCollectionByProducts = catchAsyncError(async (req, res, next) =>
     });
   }
 
-  // Build filter object
   let filter = { collectionId: collection._id };
 
-  // Color filtering
   if (req.query.colors) {
     const colors = Array.isArray(req.query.colors) ? req.query.colors : [req.query.colors];
-    filter.colors = { $in: colors.map(color => new RegExp(color, 'i')) };
+    filter.color = { $in: colors.map(color => new RegExp(color, 'i')) };
   }
 
-  // Material filtering
-  if (req.query.material) {
-      filter.material = new RegExp(req.query.material, "i");
+  if (req.query.materials) { 
+    filter.material = new RegExp(req.query.materials, "i");
   }
 
-  // Pattern filtering
   if (req.query.patterns) {
-    filter.patterns = new RegExp(req.query.patterns, "i");
+    filter.pattern = new RegExp(req.query.patterns, "i"); 
   }
 
-  // Price range filtering
   if (req.query.minPrice || req.query.maxPrice) {
     filter.$or = [
-      { price: {} },
+      { actualPrice: {} },
       { salePrice: {} }
     ];
     
     if (req.query.minPrice) {
       const minPrice = parseFloat(req.query.minPrice);
-      filter.$or[0].price.$gte = minPrice;
+      filter.$or[0].actualPrice.$gte = minPrice;
       filter.$or[1].salePrice.$gte = minPrice;
     }
     
     if (req.query.maxPrice) {
       const maxPrice = parseFloat(req.query.maxPrice);
-      filter.$or[0].price.$lte = maxPrice;
+      filter.$or[0].actualPrice.$lte = maxPrice; 
       filter.$or[1].salePrice.$lte = maxPrice;
     }
   }
 
-  // Name search
   if (req.query.name) {
     filter.name = new RegExp(req.query.name, "i");
   }
 
-  // Status filtering
   if (req.query.status) {
     filter.status = req.query.status;
   }
 
-  // Pagination
   const page = parseInt(req.query.page, 10) || 1;
   const perPage = parseInt(req.query.perPage, 10) || 15;
   const skip = (page - 1) * perPage;
 
-  // Sorting
   let sortOption = {};
   if (req.query.sort) {
     switch (req.query.sort) {
       case 'price-low':
-        sortOption = { price: 1 };
+        sortOption = { actualPrice: 1 }; 
         break;
       case 'price-high':
-        sortOption = { price: -1 };
+        sortOption = { actualPrice: -1 }; 
         break;
       case 'newest':
         sortOption = { createdAt: -1 };
@@ -302,7 +293,6 @@ export const getProductsById = async (req, res, next) => {
       query = Products.findOne({ slug }); 
     }
 
-    // Always populate categoryId and brandId
     query = query.populate("collectionId","_id name slug");
 
     const data = await query.exec();

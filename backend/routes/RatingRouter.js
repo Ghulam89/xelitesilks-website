@@ -16,7 +16,7 @@ ratingRoute.route("/getAll").get(getRatings);
 ratingRoute.route("/get/:id").get(getRating);
 ratingRoute.route("/update/:id").put(updateRating);
 ratingRoute.route("/delete/:id").delete(deleteRating);
-ratingRoute.route("/getByProduct/:id").get(getRatingByProductId);
+ratingRoute.route("/getByProduct").get(getRatingByProductId);
 ratingRoute.route("/getByUser/:id").get(getRatingByUserId);
 ratingRoute.route("/getOverall/:id").get(getOverallRating);
 

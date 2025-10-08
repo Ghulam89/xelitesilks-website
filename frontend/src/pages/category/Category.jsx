@@ -17,15 +17,25 @@ const Category = ({ serverData }) => {
   const [showMaterialFilter, setShowMaterialFilter] = useState(false);
   const [showPatternFilter, setShowPatternFilter] = useState(false);
   const [showPriceFilter, setShowPriceFilter] = useState(false);
+  const [showSortFilter, setShowSortFilter] = useState(false); // New sort filter
 
   const [selectedColors, setSelectedColors] = useState([]);
-  const [selectedMaterial, setSelectedMaterial] = useState(""); // Single selection
-  const [selectedPattern, setSelectedPattern] = useState(""); // Single selection
+  const [selectedMaterial, setSelectedMaterial] = useState("");
+  const [selectedPattern, setSelectedPattern] = useState("");
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
-  
+  const [selectedSort, setSelectedSort] = useState("newest"); // New sort state
+
   const colorOptions = ['blue', 'red', 'gray', 'pink', 'orange'];
   const materialOptions = ['Silk', 'Wool', 'Modal', 'Linen'];
   const patternOptions = ['floral', 'Geometric', 'Paisley', 'Plaid and Checks', 'Polka Dot', 'Solid Color', 'Stripes'];
+  const sortOptions = [ // New sort options
+    { value: 'newest', label: 'Newest First' },
+    { value: 'oldest', label: 'Oldest First' },
+    { value: 'price-low', label: 'Price: Low to High' },
+    { value: 'price-high', label: 'Price: High to Low' },
+    { value: 'name-asc', label: 'Name: A to Z' },
+    { value: 'name-desc', label: 'Name: Z to A' }
+  ];
 
   const FetchCategory = async (filters = {}) => {
     try {
@@ -43,23 +53,33 @@ const Category = ({ serverData }) => {
         filters.colors.forEach(color => params.append('colors', color));
       }
       
-      // Send as single string for material
       if (filters.material) {
         params.append('materials', filters.material);
       }
       
-      // Send as single string for pattern
       if (filters.pattern) {
         params.append('patterns', filters.pattern);
       }
       
-      if (filters.priceRange && (filters.priceRange.min > 0 || filters.priceRange.max < 1000)) {
-        params.append('minPrice', filters.priceRange.min);
-        params.append('maxPrice', filters.priceRange.max);
+      // Price range parameters - FIXED
+      if (filters.priceRange) {
+        if (filters.priceRange.min > 0) {
+          params.append('minPrice', filters.priceRange.min);
+        }
+        if (filters.priceRange.max < 1000) {
+          params.append('maxPrice', filters.priceRange.max);
+        }
+      }
+
+      // Add sort parameter
+      if (filters.sort) {
+        params.append('sort', filters.sort);
       }
 
       // Add pagination to show all products
       params.append('perPage', 100);
+
+      console.log('API Call with params:', params.toString()); // Debug log
 
       const response2 = await axios.get(
         `${BaseUrl}/products/categoryProducts/${response?.data?.data._id}/products-by-category?${params.toString()}`
@@ -77,9 +97,10 @@ const Category = ({ serverData }) => {
   const applyFilters = () => {
     const filters = {
       colors: selectedColors,
-      material: selectedMaterial, // Single value
-      pattern: selectedPattern,   // Single value
-      priceRange: priceRange
+      material: selectedMaterial,
+      pattern: selectedPattern,
+      priceRange: priceRange,
+      sort: selectedSort // Add sort to filters
     };
     FetchCategory(filters);
   };
@@ -93,12 +114,10 @@ const Category = ({ serverData }) => {
   };
 
   const handleMaterialChange = (material) => {
-    // Single selection - if clicking the same material, deselect it
     setSelectedMaterial(prev => prev === material ? "" : material);
   };
 
   const handlePatternChange = (pattern) => {
-    // Single selection - if clicking the same pattern, deselect it
     setSelectedPattern(prev => prev === pattern ? "" : pattern);
   };
 
@@ -106,19 +125,24 @@ const Category = ({ serverData }) => {
     setPriceRange({ min, max });
   };
 
+  const handleSortChange = (sortValue) => {
+    setSelectedSort(sortValue);
+    setShowSortFilter(false);
+  };
+
   const clearAllFilters = () => {
     setSelectedColors([]);
     setSelectedMaterial("");
     setSelectedPattern("");
     setPriceRange({ min: 0, max: 1000 });
-    // Fetch without any filters
+    setSelectedSort("newest");
     FetchCategory();
   };
 
   // Apply filters when filter states change
   useEffect(() => {
     applyFilters();
-  }, [selectedColors, selectedMaterial, selectedPattern, priceRange]);
+  }, [selectedColors, selectedMaterial, selectedPattern, priceRange, selectedSort]);
 
   // Initial fetch when slug changes
   useEffect(() => {
@@ -132,6 +156,7 @@ const Category = ({ serverData }) => {
       setShowMaterialFilter(false);
       setShowPatternFilter(false);
       setShowPriceFilter(false);
+      setShowSortFilter(false);
     };
 
     document.addEventListener('click', handleClickOutside);
@@ -157,6 +182,12 @@ const Category = ({ serverData }) => {
         "item": `${BaseUrl}/category/${slug}`
       }
     ]
+  };
+
+  // Get current sort label
+  const getCurrentSortLabel = () => {
+    const currentSort = sortOptions.find(option => option.value === selectedSort);
+    return currentSort ? currentSort.label : 'Sort By';
   };
 
   return (
@@ -193,6 +224,7 @@ const Category = ({ serverData }) => {
                   setShowMaterialFilter(false);
                   setShowPatternFilter(false);
                   setShowPriceFilter(false);
+                  setShowSortFilter(false);
                 }}
               >
                 Color ({selectedColors.length}) <LiaAngleDownSolid />
@@ -234,6 +266,7 @@ const Category = ({ serverData }) => {
                   setShowColorFilter(false);
                   setShowPatternFilter(false);
                   setShowPriceFilter(false);
+                  setShowSortFilter(false);
                 }}
               >
                 Material {selectedMaterial && `(${selectedMaterial})`} <LiaAngleDownSolid />
@@ -272,6 +305,7 @@ const Category = ({ serverData }) => {
                   setShowColorFilter(false);
                   setShowMaterialFilter(false);
                   setShowPriceFilter(false);
+                  setShowSortFilter(false);
                 }}
               >
                 Pattern {selectedPattern && `(${selectedPattern})`} <LiaAngleDownSolid />
@@ -310,21 +344,23 @@ const Category = ({ serverData }) => {
                   setShowColorFilter(false);
                   setShowMaterialFilter(false);
                   setShowPatternFilter(false);
+                  setShowSortFilter(false);
                 }}
               >
-                Price <LiaAngleDownSolid />
+                Price {priceRange.min > 0 || priceRange.max < 1000 ? `($${priceRange.min}-$${priceRange.max})` : ''} <LiaAngleDownSolid />
               </button>
               {showPriceFilter && (
                 <div className="absolute top-full left-0 bg-white z-40 w-64 border p-3 mt-1 rounded shadow-lg">
                   <h3 className="font-semibold mb-2">Price Range</h3>
                   <div className="space-y-3">
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 items-center">
                       <input
                         type="number"
                         value={priceRange.min}
                         onChange={(e) => handlePriceChange(Number(e.target.value), priceRange.max)}
                         className="w-20 p-1 border rounded"
                         placeholder="Min"
+                        min="0"
                       />
                       <span className="self-center">to</span>
                       <input
@@ -333,29 +369,81 @@ const Category = ({ serverData }) => {
                         onChange={(e) => handlePriceChange(priceRange.min, Number(e.target.value))}
                         className="w-20 p-1 border rounded"
                         placeholder="Max"
+                        min="0"
                       />
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                       <button
-                        className="text-sm bg-blue-500 text-white px-3 py-1 rounded"
+                        className="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
                         onClick={() => handlePriceChange(0, 50)}
                       >
                         Under $50
                       </button>
                       <button
-                        className="text-sm bg-blue-500 text-white px-3 py-1 rounded"
+                        className="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
                         onClick={() => handlePriceChange(50, 100)}
                       >
                         $50-$100
                       </button>
+                      <button
+                        className="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                        onClick={() => handlePriceChange(100, 200)}
+                      >
+                        $100-$200
+                      </button>
                     </div>
+                    <button
+                      className="w-full text-sm bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600"
+                      onClick={() => handlePriceChange(0, 1000)}
+                    >
+                      Clear Price
+                    </button>
                   </div>
                 </div>
               )}
             </div>
 
+            {/* Sort Filter - NEW */}
+            <div className="relative">
+              <button
+                className="cursor-pointer flex items-center gap-2 bg-white px-4 py-2 rounded border"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowSortFilter(!showSortFilter);
+                  setShowColorFilter(false);
+                  setShowMaterialFilter(false);
+                  setShowPatternFilter(false);
+                  setShowPriceFilter(false);
+                }}
+              >
+                {getCurrentSortLabel()} <LiaAngleDownSolid />
+              </button>
+              {showSortFilter && (
+                <div className="absolute top-full left-0 bg-white z-40 w-64 border p-3 mt-1 rounded shadow-lg">
+                  <h3 className="font-semibold mb-2">Sort By</h3>
+                  <ul className="space-y-2">
+                    {sortOptions.map((option, index) => (
+                      <li key={index} className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          id={`sort-${index}`}
+                          name="sort"
+                          checked={selectedSort === option.value}
+                          onChange={() => handleSortChange(option.value)}
+                          className="w-4 h-4"
+                        />
+                        <label htmlFor={`sort-${index}`} className="cursor-pointer">
+                          {option.label}
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
             {/* Clear All Filters Button */}
-            {(selectedColors.length > 0 || selectedMaterial || selectedPattern || priceRange.min > 0 || priceRange.max < 1000) && (
+            {(selectedColors.length > 0 || selectedMaterial || selectedPattern || priceRange.min > 0 || priceRange.max < 1000 || selectedSort !== "newest") && (
               <button
                 className="cursor-pointer bg-gray-200 px-4 py-2 rounded border hover:bg-gray-300"
                 onClick={clearAllFilters}

@@ -40,18 +40,37 @@ const FAQ = () => {
   }, []);
 
   return (
-    <div style={{ backgroundImage: `url(${faq})` }} className="">
-      <div className="sm:max-w-6xl max-w-[95%] mx-auto">
+    <div className="">
+      <div className="sm:max-w-7xl max-w-[95%] mx-auto">
         <div className="">
           <div className="text-center">
             <h2 className="sm:text-[35px] text-[25px]  pt-7    font-sans   font-[600] text-[#333333]">FAQ's</h2>
-            <Button label={'View All'} className="bg-[#4440E6] mx-auto text-white mt-2 opacity-90" />
+             <Button
+                                 rIcons={
+                                   <svg
+                                     width="26"
+                                     height="26"
+                                     viewBox="0 0 26 26"
+                                     fill="none"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                   >
+                                     <circle cx="13" cy="13" r="12.5" fill="currentColor" stroke="black" />
+                                     <path
+                                       d="M10.6367 15.3636L14.7731 11.2273M14.7731 11.2273L15.364 13.5909M14.7731 11.2273L12.4094 10.6364"
+                                       stroke="white"
+                                       strokeWidth="1.5"
+                                     />
+                                   </svg>
+                                 }
+                                 label="View All"
+                                 className="mt-5 mx-auto border-2 border-[#C5A980] bg-[#C5A980] text-black hover:bg-white hover:text-black hover:border-[#C5A980]"
+                               />
           </div>
           
           <div className="flex sm:flex-row flex-col justify-between sm:gap-5 gap-0">
-            <div className="sm:w-6/12 w-full">
+            <div className="sm:w-12/12 w-full">
               <div className="mt-12">
-                {accordions.slice(0, Math.ceil(accordions.length / 2)).map((accordion) => (
+                {accordions?.map((accordion) => (
                   <Accordion
                     key={accordion._id}
                     id={accordion._id}
@@ -64,21 +83,7 @@ const FAQ = () => {
                 ))}
               </div>
             </div>
-            <div className="sm:w-6/12 w-full">
-              <div className="sm:mt-12 mt-0">
-                {accordions.slice(Math.ceil(accordions.length / 2)).map((accordion) => (
-                  <Accordion
-                    key={accordion._id}
-                    id={accordion._id}
-                    title={accordion.question}
-                    data={accordion.answer}
-                    isOpen={accordion.isOpen}
-                    toggleAccordion={() => toggleAccordion(accordion._id)}
-                    customKey={accordion.customKey}
-                  />
-                ))}
-              </div>
-            </div>
+           
           </div>
         </div>
       </div>

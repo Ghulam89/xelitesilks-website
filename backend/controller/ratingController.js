@@ -1,3 +1,4 @@
+import { Products } from "../model/Product.js";
 import { Rating } from "../model/rating.js";
 
 
@@ -73,10 +74,26 @@ export const deleteRating = async (req, res) => {
     .status(200)
     .json({ message: "Rating deleted successfully", status: "success" });
 };
+
 export const getRatingByProductId = async (req, res) => {
-  const { id } = req.params;
+  const { id, slug } = req.query;
+
   try {
-    const ratings = await Rating.find({ product: id }).populate("user");
+    let productId;
+
+    if (id) {
+      productId = id;
+    } else if (slug) {
+      const product = await Products.findOne({ slug });
+      if (!product) {
+        return res.status(404).json({ message: "Product not found by slug" });
+      }
+      productId = product._id;
+    } else {
+      return res.status(400).json({ message: "Product ID or slug is required" });
+    }
+
+    const ratings = await Rating.find({ product: productId }).populate("user");
 
     const totalRatings = ratings.length;
     const averageRating =
@@ -92,7 +109,7 @@ export const getRatingByProductId = async (req, res) => {
       status: "success",
     });
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 

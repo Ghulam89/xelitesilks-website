@@ -53,6 +53,9 @@ const ProductDetails = ({
   const dispatch = useDispatch()
   const [product, setProduct] = useState(serverData || null);
   const [relatedProduct, setRelatedProduct] = useState([])
+  const [reviewProduct, setReviewProduct] = useState(null)
+
+  
   const navigate = useNavigate();
   const [showCartSideMenu, setShowCartSideMenu] = React.useState(false);
 
@@ -201,6 +204,14 @@ const ProductDetails = ({
     setProduct(response?.data?.data)
   }
 
+  const fetchReviewProducts = async () => {
+    const response = await axios.get(`${BaseUrl}/rating/getByProduct?slug=${slug}`)
+
+    console.log(response);
+    
+    setReviewProduct(response?.data)
+  }
+
   const fetchRelatedProducts = async () => {
     const response = await axios.get(`${BaseUrl}/products/related-products?slug=${slug}`)
 
@@ -212,6 +223,7 @@ const ProductDetails = ({
   useEffect(() => {
     fetchProducts();
     fetchRelatedProducts();
+    fetchReviewProducts()
   }, [slug])
 
   const breadcrumbSchema = {
@@ -481,13 +493,13 @@ const reviews = [
               </svg>
             ))}
           </div>
-          <p className="text-gray-800 font-medium">41 Reviews</p>
+          <p className="text-gray-800 font-medium">{reviewProduct?.totalRatings} Reviews</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {reviews.map((r, i) => (
-            <ReviewCard key={i} name={r.name} text={r.text} />
-          ))}
+         {reviewProduct?.data?.map((r, i) => (
+  <ReviewCard key={i} name={r.name} text={r.review} rating={r.rating} />
+))}
         </div>
 
         <div className="text-center mt-6">
@@ -582,6 +594,9 @@ const reviews = [
       {showCartSideMenu && (
         <AddToCartSideMenu onClose={() => setShowCartSideMenu(false)} />
       )}
+
+
+      <FAQ/>
 
     </>
   )
