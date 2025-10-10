@@ -15,7 +15,7 @@ function SingleProductTabs({relatedProduct}) {
 
     const content = [
         <div>
-            <div className=' grid grid-cols-3'>
+            <div className=' grid grid-cols-4 gap-6'>
 
                 {
                     relatedProduct?.map((item,index)=>{
