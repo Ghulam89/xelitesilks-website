@@ -6,13 +6,15 @@ import * as Yup from 'yup'
 import axios from 'axios'
 import logo from '../../assets/images/xelite silk.svg'
 import { BaseUrl } from '../../utils/BaseUrl'
+import { useDispatch } from 'react-redux'
+import { addUser } from '../../store/productSlice'
 
 function PopupLoginSignUp({ onClose }) {
   const [activeTab, setActiveTab] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const [apiError, setApiError] = useState('')
   const modelRef = useRef()
-
+const dispatch = useDispatch()
   const closeModel = (e) => {
     if (modelRef.current === e.target) {
       onClose()
@@ -73,7 +75,8 @@ function PopupLoginSignUp({ onClose }) {
         console.log('Login successful:', response.data)
         // Store token, user data, etc.
         localStorage.setItem('token', response.data.token)
-        localStorage.setItem('user', JSON.stringify(response.data.user))
+        localStorage.setItem('user', JSON.stringify(response?.data?.data?.user))
+        dispatch(addUser(response?.data?.data?.user))
         
         onClose() // Close modal on success
       } catch (error) {

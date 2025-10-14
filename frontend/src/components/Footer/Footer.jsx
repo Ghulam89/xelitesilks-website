@@ -85,10 +85,10 @@ const Footer = () => {
           <ul className="space-y-2 text-sm text-gray-700">
             <li><Link to="/about-us">About Us</Link></li>
             <li><Link to="/blogs">Blogs</Link></li>
-            <li><Link to="/size-guide">Size Guide</Link></li>
+            {/* <li><Link to="/size-guide">Size Guide</Link></li> */}
             <li><Link to="/contact-us">Contact Us</Link></li>
-            <li><Link to="/career">Career</Link></li>
-            <li><Link to="/account">My Account</Link></li>
+            {/* <li><Link to="/career">Career</Link></li> */}
+            <li><Link to="/profile">My Account</Link></li>
           </ul>
         </div>
 
@@ -100,8 +100,8 @@ const Footer = () => {
             <li><Link to="/returns-refunds">Return & Refund</Link></li>
             <li><Link to="/privacy-policy">Privacy Policy</Link></li>
             <li><Link to="/terms-and-conditions">Terms & Conditions</Link></li>
-            <li><Link to="/faqs">Orders FAQs</Link></li>
-            <li><Link to="/wishlist">My Wishlist</Link></li>
+            <li><Link to="/faqs"> FAQs</Link></li>
+            {/* <li><Link to="/wishlist">My Wishlist</Link></li> */}
           </ul>
         </div>
 

@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { FaUserEdit, FaAddressCard } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { useSelector } from "react-redux";
 
 function Profile() {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showAddressModal, setShowAddressModal] = useState(false);
+  const userInfo = useSelector((state) => state.product.userInfo)
+
+
+
+  console.log(userInfo);
+  
 
   const [profile, setProfile] = useState({
     firstName: "John",
@@ -60,13 +67,13 @@ function Profile() {
               <div>
                 <h4 className="text-sm text-gray-500 uppercase">Full Name</h4>
                 <p className="text-[#c5a980] font-semibold text-base">
-                  {profile.firstName} {profile.lastName}
+                  {userInfo.username}
                 </p>
               </div>
               <div>
                 <h4 className="text-sm text-gray-500 uppercase">Email</h4>
                 <p className="text-[#c5a980] font-semibold text-base">
-                  {profile.email}
+                  {userInfo.email}
                 </p>
               </div>
             </div>

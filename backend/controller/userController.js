@@ -77,7 +77,7 @@ export const register = catchAsyncError(async (req, res, next) => {
       }
 
      const isPasswordValid = await bcrypt.compare(password, existingUser.password);
-    if (!isPasswordValid) {
+    if (isPasswordValid) {
       return res.status(401).json({
         status: "fail",
         message: "Invalid email or password",

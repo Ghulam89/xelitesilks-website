@@ -4,6 +4,7 @@ import BottomNav from "./BottomNav";
 import { Link } from "react-router-dom";
 import PopupLoginSignUp from "../../pages/auth/PopupLoginSignUp";
 import PopupSearchModal from "./PopupSearchModal";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
@@ -27,7 +28,9 @@ const Navbar = () => {
     };
   }, []);
 
+  const { productData: cartItems } = useSelector((state) => state.product);
 
+  console.log(cartItems);
   return (
     <div className="bg-white">
       <div className="sm:max-w-7xl px-2 relative max-w-[95%] mx-auto">
@@ -104,6 +107,10 @@ const Navbar = () => {
                       <path d="M81.34,27.06a2,2,0,0,0-2-1.89H69V22A19,19,0,1,0,31,22v3.21H20.65a2,2,0,0,0-2,1.89L14.74,94.88a2,2,0,0,0,2,2.12H83.26a2,2,0,0,0,2-2.12ZM35,22A15,15,0,1,1,65,22v3.21H35ZM18.86,93l3.68-63.83H31V46.74a2,2,0,0,0,4,0V29.17H65V46.74a2,2,0,0,0,4,0V29.17h8.5L81.14,93Z"></path>
                     </g>
                   </svg>
+
+                  {cartItems?.length>0?
+                <span className=" w-5  flex justify-center items-center text-sm h-5 bg-black absolute top-4 right-0 rounded-full text-white">{cartItems?.length}</span>:null  
+                }
                 </div>
                 <span className="uppercase pt-1 sm:block hidden text-xs text-gray-700 group-hover:text-[#C5A980] transition-colors duration-200">Cart</span>
               </Link>

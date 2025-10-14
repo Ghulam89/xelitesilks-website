@@ -125,7 +125,7 @@ function Cart() {
                     </td>
                     <td className="p-3 font-semibold text-gray-700">$190.00</td>
                     <td className="p-3 text-center">
-                      <button className="text-red-500 hover:text-red-700">
+                      <button  className="text-red-500 hover:text-red-700">
                         <FaTrashAlt />
                       </button>
                     </td>
