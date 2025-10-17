@@ -90,7 +90,7 @@ const ProductCard = ({ product }) => {
       {/* Product Info */}
       <div className="mt-3 px-2">
         <span className="price text-gray-500 sm:text-base text-sm  font-semibold block mt-1">{size}</span>
-        <Link to={`/product/${slug}`} className="title sm:text-lg text-sm link text-[#404041] font-medium hover:text-gray-600 transition-colors block">
+        <Link to={`/${slug}`} className="title sm:text-lg text-sm link text-[#404041] font-medium hover:text-gray-600 transition-colors block">
           {name}
         </Link>
         <span className="price text-lg text-[#404041]  font-semibold block mt-1">$ {actualPrice}</span>

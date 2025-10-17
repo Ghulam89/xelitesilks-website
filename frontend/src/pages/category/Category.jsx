@@ -6,6 +6,9 @@ import PageMetadata from "../../components/common/PageMetadata";
 import ProductCard from "../../components/common/ProductCard";
 import { LiaAngleDownSolid } from "react-icons/lia";
 import Button from "../../components/common/Button";
+import TopNav from "../../components/Header/TopNav";
+import Navbar from "../../components/Header/Navbar";
+import Footer from "../../components/Footer/Footer";
 
 const Category = ({ serverData }) => {
   const { slug } = useParams();
@@ -192,6 +195,9 @@ const Category = ({ serverData }) => {
 
   return (
     <>
+
+    <TopNav />
+     <Navbar />
       <PageMetadata
         title={categoryData?.metaTitle || serverData?.metaTitle || "Custom Packaging Solutions"}
         description={categoryData?.metaDescription || serverData?.metaDescription || ""}
@@ -485,6 +491,7 @@ const Category = ({ serverData }) => {
           )}
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

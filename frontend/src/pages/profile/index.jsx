@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { FaUserEdit, FaAddressCard } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useSelector } from "react-redux";
+import TopNav from "../../components/Header/TopNav";
+import Navbar from "../../components/Header/Navbar";
+import Footer from "../../components/Footer/Footer";
 
 function Profile() {
   const [showProfileModal, setShowProfileModal] = useState(false);
@@ -37,7 +40,10 @@ function Profile() {
   const handleAddressSave = () => setShowAddressModal(false);
 
   return (
-    <div className="bg-[#f7f3ef] min-h-screen md:p-10 p-5 overflow-hidden">
+  <>
+    <TopNav/>
+    <Navbar/>
+       <div className="bg-[#f7f3ef] min-h-screen md:p-10 p-5 overflow-hidden">
       <div className="container mx-auto">
         {/* Heading */}
         <h2 className="text-3xl font-semibold text-[#454444]">
@@ -67,13 +73,13 @@ function Profile() {
               <div>
                 <h4 className="text-sm text-gray-500 uppercase">Full Name</h4>
                 <p className="text-[#c5a980] font-semibold text-base">
-                  {userInfo.username}
+                  {userInfo?.username}
                 </p>
               </div>
               <div>
                 <h4 className="text-sm text-gray-500 uppercase">Email</h4>
                 <p className="text-[#c5a980] font-semibold text-base">
-                  {userInfo.email}
+                  {userInfo?.email}
                 </p>
               </div>
             </div>
@@ -309,6 +315,8 @@ function Profile() {
         </div>
       )}
     </div>
+    <Footer/>
+  </>
   );
 }
 

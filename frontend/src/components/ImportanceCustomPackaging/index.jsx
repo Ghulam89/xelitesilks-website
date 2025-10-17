@@ -56,7 +56,7 @@ const ImportanceCustomPackaging = () => {
                   
 
                       <h2 className="sm:text-[40px] sm:pb-10 pb-0 sm:pt-4 pt-0 text-[25px]  flex md:flex-row flex-col justify-center sm:gap-1 gap-0  leading-9    font-sans   font-[600] text-[#333333] ">
-What Is Custom Packaging? <h2 style={{color:'#4440E6'}} className=' m-0 '>A Complete Guide  </h2></h2>
+What Is Custom Packaging? <h2 style={{color:'#C5A980'}} className=' m-0 '>A Complete Guide  </h2></h2>
         </div>
         <div className="flex flex-col lg:flex-row gap-8 blog_content banner_content items-center">
           {/* Text Content */}

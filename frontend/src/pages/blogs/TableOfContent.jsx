@@ -129,18 +129,18 @@ function TableOfContent({ content }) {
                             {headings.map((heading, index) => (
                                 <li 
                                     key={`${heading.id}-${index}`} 
-                                    className={`text-sm hover:text-[#4440E6] cursor-pointer transition-colors ${
+                                    className={`text-sm hover:text-[#C5A980] cursor-pointer transition-colors ${
                                         heading.level === 1 ? 'pl-0 font-semibold' : 
                                         heading.level === 2 ? 'pl-2' : 
                                         'pl-4'
                                     } ${
-                                        activeId === heading.id ? 'text-[#4440E6] font-medium' : 'text-gray-700'
+                                        activeId === heading.id ? 'text-[#C5A980] font-medium' : 'text-gray-700'
                                     }`}
                                 >
                                     <a 
                                         href={`#${heading.id}`}
                                         onClick={(e) => scrollToHeading(heading.id, e)}
-                                        className=' hover:underline hover:text-[#4440E6] flex items-start'
+                                        className=' hover:underline hover:text-[#C5A980] flex items-start'
                                     >
                                         <span style={{fontSize:'15px'}} className={`mr-2 min-w-[20px] ${
                                             activeId === heading.id ? 'text-[#FF6B00]' : 'text-gray-500'

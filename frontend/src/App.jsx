@@ -22,11 +22,11 @@ function App({ serverData, CategoryProducts }) {
     <>
       <ToastContainer />
 
-      <TopNav />
-      <Navbar />
+      {/* <TopNav /> */}
+      {/* <Navbar /> */}
 
       {element}
-      <Footer /> 
+      {/* <Footer />  */}
     </>
   );
 }

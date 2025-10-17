@@ -46,7 +46,7 @@ const NotFound = () => {
         
         <div className="pt-4">
         
-          <Button  label={'Return to Homepage'}  className=" bg-[#4440E6]  text-white"  />
+          <Button  label={'Return to Homepage'}  className=" bg-[#C5A980]  text-white"  />
         </div>
       </div>
       

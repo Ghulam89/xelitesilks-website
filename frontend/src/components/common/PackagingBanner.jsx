@@ -15,7 +15,7 @@ function PackagingBanner({
      <strong className='text-center sm:text-[14px] text-[13px] text-[#E97900] font-semibold' >{title}</strong>
       <label className='md:text-[38px] text-[20px] font-semibold leading-9 pt-2 text-center text-[#fff]' >{subTitle}</label>
       <Link to={url}>
-       <Button className='bg-[#4440E6] mt-4 text-white' label={"Order Kraft Packaging"}/></Link>
+       <Button className='bg-[#C5A980] mt-4 text-white' label={"Order Kraft Packaging"}/></Link>
      
       </div>
      </div>

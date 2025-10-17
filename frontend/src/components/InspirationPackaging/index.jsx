@@ -58,7 +58,7 @@ const InspirationPackaging = () => {
                 <Link to={'/contact-us'}>
                  <Button 
                     label={'Contact Our Design Department'} 
-                    className="bg-[#4440E6] text-white mx-auto mt-2" 
+                    className="bg-[#C5A980] text-white mx-auto mt-2" 
                 />
                 </Link>
                

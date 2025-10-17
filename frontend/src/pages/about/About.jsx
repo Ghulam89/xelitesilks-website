@@ -7,6 +7,9 @@ import team1 from '../../assets/images/team-1.jpg'
 import team2 from '../../assets/images/team-2.jpg'
 import team3 from '../../assets/images/team-3.jpg'
 import team4 from '../../assets/images/team-4.jpg'
+import Navbar from '../../components/Header/Navbar'
+import TopNav from '../../components/Header/TopNav'
+import Footer from '../../components/Footer/Footer'
 
 function About() {
   const teams = [
@@ -17,6 +20,9 @@ function About() {
   ];
   return (
     <>
+
+     <TopNav />
+         <Navbar/>
       {/**Hero section */}
       <div className='container-fluid mx-auto'>
         <div className='flex justify-center items-center  text-shadow-2xs'>
@@ -136,6 +142,7 @@ function About() {
 
 
       </div>
+      <Footer/>
     </>
 
   )

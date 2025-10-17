@@ -62,7 +62,7 @@ Need Box Template to design?</h2>
             <div className=" mt-5">
               <Button
                 label="Get Template"
-                className="bg-[#4440E6] text-white"
+                className="bg-[#C5A980] text-white"
               />
             </div>
           </div>

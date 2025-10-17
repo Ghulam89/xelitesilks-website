@@ -11,6 +11,9 @@ import who from '../../assets/images/2.webp'
 import how from '../../assets/images/1.webp'
 import where from '../../assets/images/3.webp'
 import PageMetadata from '../../components/common/PageMetadata'
+import TopNav from '../../components/Header/TopNav'
+import Navbar from '../../components/Header/Navbar'
+import Footer from '../../components/Footer/Footer'
 export const Home = () => {
 
   const metadata = {
@@ -122,7 +125,8 @@ export const Home = () => {
   return (
     <>
       <PageMetadata {...metadata} />
-
+    <TopNav />
+     <Navbar />
       <main>
         <Hero />
         <ShopByCategories />
@@ -162,6 +166,8 @@ export const Home = () => {
         <Testimonials />
         <ServicesBanner />
       </main>
+
+      <Footer/>
     </>
   )
 }

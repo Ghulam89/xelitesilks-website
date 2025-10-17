@@ -13,7 +13,7 @@ const CustomBoxCard = ({ title, subTitle, description, image, buttonUrl }) => {
             <p className="pt-2.5">{description}</p>
             <Button
               label={"Get Quote"}
-              className="bg-[#4440E6] text-white mt-2 opacity-90"
+              className="bg-[#C5A980] text-white mt-2 opacity-90"
               onClick={() => window.location.href = buttonUrl}
             />
           </div>

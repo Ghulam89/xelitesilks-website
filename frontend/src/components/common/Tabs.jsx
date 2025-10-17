@@ -10,8 +10,8 @@ const Tabs = ({ tabs, defaultTab, className }) => {
             key={tab.title}
             className={`px-4 cursor-pointer transition-all duration-300 ease-in-out  rounded-lg text-sm py-4.5  ${
               activeTab === tab.title
-                ? "  bg-[#4440E6]     opacity-50  w-full text-white"
-                : `  w-full  hover:bg-[#4440E6]  ${className}   hover:border-[#4440E6] opacity-90  border-gray-300`
+                ? "  bg-[#C5A980]     opacity-50  w-full text-white"
+                : `  w-full  hover:bg-[#C5A980]  ${className}   hover:border-[#C5A980] opacity-90  border-gray-300`
             }`}
             onClick={() => setActiveTab(tab.title)}
           >

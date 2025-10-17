@@ -11,6 +11,9 @@ import moment from 'moment';
 import { FaFacebookF, FaInstagram, FaTiktok, FaPinterest } from "react-icons/fa";
 import { FaXTwitter } from 'react-icons/fa6';
 import { CiCalendar, CiUser } from "react-icons/ci";
+import TopNav from '../../components/Header/TopNav';
+import Navbar from '../../components/Header/Navbar';
+import Footer from '../../components/Footer/Footer';
 function SingleBlog({ serverData }) {
     const { slug } = useParams();
     const navigate = useNavigate();
@@ -98,6 +101,9 @@ useEffect(() => {
 
     return (
         <>
+
+         <TopNav/>
+         <Navbar/>
             <PageMetadata
                 title={singleBlog?.metaTitle || serverData?.metaTitle || "Custom Packaging Solutions"}
                 description={singleBlog?.metaDescription || serverData?.metaDescription || ""}
@@ -247,7 +253,7 @@ useEffect(() => {
                 </div>
 </div>
             
-
+      <Footer/>
         </>
 
     );

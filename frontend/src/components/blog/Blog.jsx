@@ -76,10 +76,10 @@ const Blog = () => {
 
           
           <div className="flex  justify-center gap-3 items-center mt-8">
-            <button className="custom-prev w-12 h-12 bg-[#F6F6F6]  hover:bg-[#4440E6] hover:text-white  rounded-full flex items-center justify-center">
+            <button className="custom-prev w-12 h-12 bg-[#F6F6F6]  hover:bg-[#C5A980] hover:text-white  rounded-full flex items-center justify-center">
               <IoIosArrowBack  size={25}  />
             </button>
-            <button className="custom-next w-12 h-12 bg-[#F6F6F6] hover:bg-[#4440E6] rounded-full hover:text-white flex items-center justify-center">
+            <button className="custom-next w-12 h-12 bg-[#F6F6F6] hover:bg-[#C5A980] rounded-full hover:text-white flex items-center justify-center">
               <IoIosArrowForward size={25} />
             </button>
           </div>

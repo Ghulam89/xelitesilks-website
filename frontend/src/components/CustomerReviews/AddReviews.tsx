@@ -138,7 +138,7 @@ const AddReviews = ({ isModalOpen, setIsModalOpen, closeModal }) => {
               
               <Button
                 label={loading ? "Posting..." : "Post"}
-                className="bg-[#4440E6] text-white mt-3 w-full py-2 rounded-lg font-medium"
+                className="bg-[#C5A980] text-white mt-3 w-full py-2 rounded-lg font-medium"
                 type="submit"
                 disabled={loading}
               />

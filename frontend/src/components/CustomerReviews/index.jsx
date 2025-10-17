@@ -64,7 +64,7 @@ const CustomerReviews = () => {
         <Button 
           onClick={() => setOpenModal(true)} 
           label={'Write a Review'} 
-          className="mx-auto bg-[#4440E6] mb-5 text-white hover:bg-[#3730a3]" 
+          className="mx-auto bg-[#C5A980] mb-5 text-white hover:bg-[#3730a3]" 
         />
         
         {loading ? (
@@ -133,13 +133,13 @@ const CustomerReviews = () => {
             {/* Navigation buttons */}
             <div className="flex absolute top-1/2 z-40 w-full justify-between transform -translate-y-1/2">
               <button 
-                className="custom-prev w-12 h-12 bg-[#F6F6F6] text-[#4440E6] hover:bg-[#4440E6] hover:text-white rounded-full flex items-center justify-center shadow-md ml-4"
+                className="custom-prev w-12 h-12 bg-[#F6F6F6] text-[#C5A980] hover:bg-[#C5A980] hover:text-white rounded-full flex items-center justify-center shadow-md ml-4"
                 aria-label="Previous review"
               >
                 <IoIosArrowBack size={25} />
               </button>
               <button 
-                className="custom-next w-12 h-12 bg-[#F6F6F6] text-[#4440E6] hover:bg-[#4440E6] hover:text-white rounded-full flex items-center justify-center shadow-md mr-4"
+                className="custom-next w-12 h-12 bg-[#F6F6F6] text-[#C5A980] hover:bg-[#C5A980] hover:text-white rounded-full flex items-center justify-center shadow-md mr-4"
                 aria-label="Next review"
               >
                 <IoIosArrowForward size={25} />

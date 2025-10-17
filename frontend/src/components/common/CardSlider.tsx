@@ -55,10 +55,10 @@ const CardSlider = ({ item, index }) => {
 
 
         <div className="flex w-full justify-center sm:mt-0 mt-6 gap-3 items-center">
-          <button className={`custom-prev-${index} md:absolute top-[40%] z-40 md:-left-15 w-10 h-10 bg-[#F6F6F6] text-[#4440E6] hover:bg-[#4440E6] hover:text-white rounded-xl flex items-center justify-center`}>
+          <button className={`custom-prev-${index} md:absolute top-[40%] z-40 md:-left-15 w-10 h-10 bg-[#F6F6F6] text-[#C5A980] hover:bg-[#C5A980] hover:text-white rounded-xl flex items-center justify-center`}>
             <IoIosArrowBack size={25} />
           </button>
-          <button className={`custom-next-${index} w-10 h-10 md:absolute top-[40%] z-40 md:-right-15 bg-[#F6F6F6] text-[#4440E6] hover:bg-[#4440E6] hover:text-white rounded-xl flex items-center justify-center`}>
+          <button className={`custom-next-${index} w-10 h-10 md:absolute top-[40%] z-40 md:-right-15 bg-[#F6F6F6] text-[#C5A980] hover:bg-[#C5A980] hover:text-white rounded-xl flex items-center justify-center`}>
             <IoIosArrowForward size={25} />
           </button>
         </div>

@@ -215,12 +215,12 @@ const SubCategory = ({ serverData, CategoryProducts }) => {
 
             <div className='w-full lg:w-1/2 '>
               <ul className=' flex flex-wrap sm:gap-3  gap-1'>
-                <li className=' text-sm text-[#4440E6]'>
+                <li className=' text-sm text-[#C5A980]'>
                   <Link to={'/'}>
                     Home
                   </Link>
                 </li>
-                <li className=' text-sm text-[#4440E6]  whitespace-nowrap capitalize'>
+                <li className=' text-sm text-[#C5A980]  whitespace-nowrap capitalize'>
                   <Link to={`/category/${categoryData?.brandId?.slug}`} >
                     / {categoryData?.brandId?.name}
 
@@ -249,19 +249,19 @@ const SubCategory = ({ serverData, CategoryProducts }) => {
                 <Button
                  onClick={()=>setIsModalOpen(true)}
                   label={"Get Instant Quote"}
-                  className=" bg-[#4440E6] text-white"
+                  className=" bg-[#C5A980] text-white"
                 />
                 <Link to={'/dielines'}>
                  <Button
                   label={"Get  Template"}
-                  className="bg-[#4440E6] text-white"
+                  className="bg-[#C5A980] text-white"
                 />
                 </Link>
                
                 <Link to={'/target-price'}>
                 <Button
                   label={"Meat My Quote"}
-                  className="bg-[#4440E6]  text-white"
+                  className="bg-[#C5A980]  text-white"
                 />
                 </Link>
                 
@@ -321,7 +321,7 @@ const SubCategory = ({ serverData, CategoryProducts }) => {
               <div className="flex justify-center mt-6">
                 <Button
                   label={loading ? "Loading..." : "Explore More"}
-                  className="bg-[#4440E6] text-white"
+                  className="bg-[#C5A980] text-white"
                   onClick={loadMoreProducts}
                   disabled={loading}
                 />
@@ -401,7 +401,7 @@ const SubCategory = ({ serverData, CategoryProducts }) => {
                   <Button
 
                     label={"Get Instant Quote"}
-                    className=" bg-[#4440E6] text-white"
+                    className=" bg-[#C5A980] text-white"
                   />
 
                 </div>
@@ -512,7 +512,7 @@ const SubCategory = ({ serverData, CategoryProducts }) => {
                 <Button
 
                   label={"Get Instant Quote"}
-                  className=" bg-[#4440E6] text-white"
+                  className=" bg-[#C5A980] text-white"
                 />
 
               </div>
@@ -574,7 +574,7 @@ const SubCategory = ({ serverData, CategoryProducts }) => {
                 <Button
 
                   label={"Get Instant Quote"}
-                  className=" bg-[#4440E6] text-white"
+                  className=" bg-[#C5A980] text-white"
                 />
 
               </div>
@@ -614,7 +614,7 @@ const SubCategory = ({ serverData, CategoryProducts }) => {
                 <Button
 
                   label={"Get Instant Quote"}
-                  className=" bg-[#4440E6] text-white"
+                  className=" bg-[#C5A980] text-white"
                 />
 
               </div>
@@ -647,7 +647,7 @@ const SubCategory = ({ serverData, CategoryProducts }) => {
         </div>
 
         <div>
-          <Button label={'Get Template'} className=" bg-[#4440E6] text-white" />
+          <Button label={'Get Template'} className=" bg-[#C5A980] text-white" />
         </div>
       </div>
 

@@ -6,6 +6,10 @@ import { FaTrashAlt } from "react-icons/fa";
 import { BaseUrl } from "../../utils/BaseUrl";
 import { useDispatch, useSelector } from "react-redux";
 import PageMetadata from "../../components/common/PageMetadata";
+import TopNav from "../../components/Header/TopNav";
+import Navbar from "../../components/Header/Navbar";
+import Footer from "../../components/Footer/Footer";
+import { Link } from "react-router-dom";
 
 function Cart() {
 
@@ -45,6 +49,8 @@ function Cart() {
 
   return (
     <>
+     <TopNav />
+     <Navbar />
     <PageMetadata {...metadata} />
       {/* Hero Banner */}
       <div className="container-fluid mx-auto">
@@ -157,16 +163,20 @@ function Cart() {
                 <span>Total</span>
                 <span>$330.00</span>
               </div>
+              <Link to={'/checkout'} className="">
               <button className="w-full py-3 rounded-md bg-[#c5a980] text-white font-medium hover:bg-[#b4976e] transition">
                 Proceed to Checkout
               </button>
-              <button className="w-full py-3 rounded-md border border-[#c5a980] text-[#c5a980] font-medium hover:bg-[#c5a980] hover:text-white transition">
+              </Link>
+              
+              <button className="w-full py-3 mt-4 rounded-md border border-[#c5a980] text-[#c5a980] font-medium hover:bg-[#c5a980] hover:text-white transition">
                 Continue Shopping
               </button>
             </div>
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

@@ -42,6 +42,9 @@ import FaqComp from '../../components/common/FaqComp'
 import SingleProductTabs from '../../components/common/SingleProductTabs'
 import AddToCartSideMenu from '../../components/common/AddToCartSideMenu'
 import ReviewCard from '../../components/common/ReviewCard'
+import Navbar from '../../components/Header/Navbar'
+import TopNav from '../../components/Header/TopNav'
+import Footer from '../../components/Footer/Footer'
 
 const ProductDetails = ({
   serverData,
@@ -54,8 +57,8 @@ const ProductDetails = ({
   const [product, setProduct] = useState(serverData || null);
   const [relatedProduct, setRelatedProduct] = useState([])
   const [reviewProduct, setReviewProduct] = useState(null)
+  const [isLoading, setIsLoading] = useState(!serverData); // Set loading true if no serverData
 
-  
   const navigate = useNavigate();
   const [showCartSideMenu, setShowCartSideMenu] = React.useState(false);
 
@@ -66,7 +69,6 @@ const ProductDetails = ({
   const [curr, setCurr] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [activeColor, setActiveColor] = useState('orange');
 
   const prev = () =>
@@ -200,30 +202,43 @@ const ProductDetails = ({
   };
 
   const fetchProducts = async () => {
-    const response = await axios.get(`${BaseUrl}/products/get?slug=${slug}`)
-    setProduct(response?.data?.data)
+    try {
+      setIsLoading(true);
+      const response = await axios.get(`${BaseUrl}/products/get?slug=${slug}`)
+      setProduct(response?.data?.data)
+    } catch (error) {
+      console.error('Error fetching product:', error);
+      toast.error('Failed to load product details');
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   const fetchReviewProducts = async () => {
-    const response = await axios.get(`${BaseUrl}/rating/getByProduct?slug=${slug}`)
-
-    console.log(response);
-    
-    setReviewProduct(response?.data)
+    try {
+      const response = await axios.get(`${BaseUrl}/rating/getByProduct?slug=${slug}`)
+      setReviewProduct(response?.data)
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
   }
 
   const fetchRelatedProducts = async () => {
-    const response = await axios.get(`${BaseUrl}/products/related-products?slug=${slug}`)
-
-    console.log(response);
-    
-    setRelatedProduct(response?.data?.data?.relatedProducts)
+    try {
+      const response = await axios.get(`${BaseUrl}/products/related-products?slug=${slug}`)
+      setRelatedProduct(response?.data?.data?.relatedProducts || [])
+    } catch (error) {
+      console.error('Error fetching related products:', error);
+    }
   }
 
   useEffect(() => {
-    fetchProducts();
+    // Only fetch if no server data provided
+    if (!serverData) {
+      fetchProducts();
+    }
     fetchRelatedProducts();
-    fetchReviewProducts()
+    fetchReviewProducts();
   }, [slug])
 
   const breadcrumbSchema = {
@@ -239,19 +254,19 @@ const ProductDetails = ({
       {
         "@type": "ListItem",
         "position": 2,
-        "name": serverData?.brandId?.name,
-        "item": `${BaseUrl}/category/${serverData?.brandId?.slug}`
+        "name": product?.brandId?.name || "Category",
+        "item": `${BaseUrl}/category/${product?.brandId?.slug}`
       },
       {
         "@type": "ListItem",
         "position": 3,
-        "name": product?.name,
+        "name": product?.name || "Product",
         "item": `${BaseUrl}/sub-category/${slug}`
       },
       {
         "@type": "ListItem",
         "position": 4,
-        "name": product?.name,
+        "name": product?.name || "Product",
         "item": `${BaseUrl}/${slug}`
       }
     ]
@@ -260,9 +275,9 @@ const ProductDetails = ({
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": serverData?.name,
-    "description": serverData?.description,
-    "image": serverData?.images?.map(img => `${BaseUrl}/${img.url}`) || [],
+    "name": product?.name,
+    "description": product?.description,
+    "image": product?.images?.map(img => `${BaseUrl}/${img.url}`) || [],
     "brand": {
       "@type": "Brand",
       "name": "Umbrella Custom Packaging"
@@ -301,33 +316,138 @@ const ProductDetails = ({
     }
   };
 
+  // Loading skeleton component
+  const ProductDetailsSkeleton = () => (
+    <div className="container mx-auto my-10 md:px-5 px-3">
+    <div className="grid md:grid-cols-2 grid-cols-1 gap-8">
+      {/* Image Gallery Skeleton - Facebook Style */}
+      <div className="md:sticky md:top-24 md:self-start">
+        <div className="flex gap-6 md:flex-row flex-col-reverse">
+          {/* Thumbnails Skeleton */}
+          <div className="flex md:flex-col flex-row gap-3 md:h-[400px] lg:h-[650px] h-auto overflow-hidden">
+            {[...Array(4)].map((_, i) => (
+              <div 
+                key={i} 
+                className="w-[100px] h-[100px] bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-lg shimmer"
+              ></div>
+            ))}
+          </div>
+          
+          {/* Main Image Skeleton */}
+          <div className="w-full">
+            <div className="w-full aspect-square bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-2xl shimmer"></div>
+          </div>
+        </div>
+      </div>
 
-  
-const reviews = [
-  {
-    name: 'Mark D.',
-    text: 'Beautiful peace  i love it',
-  },
-  {
-    name: 'Janet G.',
-    text: 'This is our 8th scarf purchase, and as always...absolutely BEAUTIFUL! We only order from here as we know the colors and quality will be OUTSTANDING! Very happy regular customers!',
-  },
-  {
-    name: 'Bob Y.',
-    text: 'Amazing work and so beautiful',
-  },
-  {
-    name: 'Dave B.',
-    text: 'I buy a birthday gift for my husband and 3 middle shed sons they love it',
-  },
-  {
-    name: 'Don W.',
-    text: 'I have accrued quite a few Elizabetta scarves over the years; they continue to impress and this one is no exception. I have the Savona in all three colors having recently purchased the burgundy edition. Simple and elegant, works great with a jacket or cardigan. Makes one anticipate cooler days ahead. Good stuff and a great addition to a gent’s wardrobe.',
-  },
-];
+      {/* Product Details Skeleton - Facebook Style */}
+      <div>
+        <div className="py-8 space-y-6">
+          {/* Title */}
+          <div className="space-y-3">
+            <div className="h-8 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-lg shimmer w-4/5"></div>
+            <div className="h-6 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded shimmer w-3/5"></div>
+          </div>
+
+          {/* Rating */}
+          <div className="flex items-center gap-3">
+            <div className="flex gap-1">
+              {[...Array(5)].map((_, i) => (
+                <div 
+                  key={i} 
+                  className="w-5 h-5 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded shimmer"
+                ></div>
+              ))}
+            </div>
+            <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded shimmer w-20"></div>
+          </div>
+
+          {/* Price */}
+          <div className="h-10 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-lg shimmer w-32"></div>
+
+          {/* Colors Section */}
+          <div className="space-y-3">
+            <div className="h-6 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded shimmer w-40"></div>
+            <div className="flex gap-3">
+              {[...Array(4)].map((_, i) => (
+                <div 
+                  key={i} 
+                  className="w-12 h-12 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-full shimmer"
+                ></div>
+              ))}
+            </div>
+          </div>
+
+          {/* Add to Cart Button */}
+          <div className="h-14 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-xl shimmer w-full"></div>
+
+          {/* Alert Text */}
+          <div className="h-6 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded shimmer w-48"></div>
+
+          {/* Features */}
+          <div className="space-y-4 pt-4">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="flex items-center gap-4">
+                <div className="w-6 h-6 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded shimmer"></div>
+                <div className="h-5 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded shimmer flex-1"></div>
+              </div>
+            ))}
+          </div>
+
+          {/* FAQ Sections */}
+          <div className="space-y-4 pt-6">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="space-y-2">
+                <div className="h-6 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded shimmer w-3/4"></div>
+                <div className="space-y-1">
+                  <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded shimmer w-full"></div>
+                  <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded shimmer w-5/6"></div>
+                  <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded shimmer w-4/6"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  );
+
+  if (isLoading) {
+    return (
+      <>
+        <TopNav />
+        <Navbar />
+        <ProductDetailsSkeleton />
+        <Footer />
+      </>
+    );
+  }
+
+  if (!product) {
+    return (
+      <>
+        <TopNav />
+        <Navbar />
+        <div className="container mx-auto my-10 md:px-5 px-3 text-center py-20">
+          <h1 className="text-2xl font-semibold mb-4">Product Not Found</h1>
+          <p className="text-gray-600 mb-6">The product you're looking for doesn't exist or has been removed.</p>
+          <Button 
+            label="Back to Home" 
+            onClick={() => navigate('/')}
+            className="bg-[#C5A980] text-black hover:bg-white hover:border-[#C5A980]"
+          />
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
+      <TopNav />
+      <Navbar />
+      
       {product && (
         <PageMetadata
           title={product.metaTitle || "Custom Packaging Solutions"}
@@ -361,6 +481,7 @@ const reviews = [
                     }}
                     src={`${BaseUrl}/${img?.url}`}
                     alt="thumbnail"
+                    loading="lazy"
                   />
                 ))}
               </div>
@@ -372,6 +493,7 @@ const reviews = [
                   alt={product?.name}
                   className="rounded-xl shadow-md transition-opacity duration-500 w-full h-auto"
                   onClick={() => openImageViewer(selectedImage || product?.images?.[0], 0)}
+                  loading="eager"
                 />
               </div>
             </div>
@@ -392,27 +514,27 @@ const reviews = [
               <p className="text-3xl font-semibold mb-6 text-[#111]">${product?.actualPrice}</p>
 
               {/* Colors */}
-              <div className="mb-6">
-                <h2 className="mb-3 font-medium text-lg">Colors: <span className='text-[#4d4e4f]'>{activeColor}</span></h2>
-                <ul className="list-color-product flex space-x-1 mt-2">
-                  {product?.color?.map((clr) => (
-                    <li
-                      key={clr}
-                      className={`cursor-pointer p-0.5 rounded-full border-2 ${activeColor === clr ? 'border-gray-800' : 'border-transparent'}`}
-                      onClick={() => setActiveColor(clr)}
-                    >
-                      <span
-                        style={{ backgroundColor: clr }}
-                        className={`block w-9 h-9 border border-[#ddd] rounded-full transition-transform hover:scale-110`}
-                      ></span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
+              {product?.color?.length > 0 && (
+                <div className="mb-6">
+                  <h2 className="mb-3 font-medium text-lg">Colors: <span className='text-[#4d4e4f]'>{activeColor}</span></h2>
+                  <ul className="list-color-product flex space-x-1 mt-2">
+                    {product?.color?.map((clr) => (
+                      <li
+                        key={clr}
+                        className={`cursor-pointer p-0.5 rounded-full border-2 ${activeColor === clr ? 'border-gray-800' : 'border-transparent'}`}
+                        onClick={() => setActiveColor(clr)}
+                      >
+                        <span
+                          style={{ backgroundColor: clr }}
+                          className={`block w-9 h-9 border border-[#ddd] rounded-full transition-transform hover:scale-110`}
+                        ></span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               <Button
-
                 onClick={() => {
                   dispatch(
                     addToCart({
@@ -424,7 +546,6 @@ const reviews = [
                       quantity: 1,
                     })
                   )
-                  // navigate('/cart')
                   setShowCartSideMenu(true)
                 }}
                 rIcons={
@@ -434,7 +555,7 @@ const reviews = [
                   </svg>
                 }
                 label="Add To Cart"
-                className="mt-5 border-2   border-[#C5A980] bg-[#C5A980] text-black hover:bg-white hover:text-black hover:border-[#C5A980]"
+                className="mt-5 border-2 border-[#C5A980] bg-[#C5A980] text-black hover:bg-white hover:text-black hover:border-[#C5A980]"
               />
 
               {/* Alert */}
@@ -462,53 +583,59 @@ const reviews = [
 
               {/* FAQ */}
               <div className="space-y-4">
-                <FaqComp
-                  title={"Xelitesilks's Inspiration"}
-                  answer={
-                    product?.inspiration
-                  }
-                />
-                <FaqComp
-                  title={"Details"}
-                  answer={
-                    product?.description}
-                />
-                <FaqComp
-                  title={"Styling Guide"}
-                  answer={product?.guide}
-                />
+                {product?.inspiration && (
+                  <FaqComp
+                    title={"Xelitesilks's Inspiration"}
+                    answer={product?.inspiration}
+                  />
+                )}
+                {product?.description && (
+                  <FaqComp
+                    title={"Details"}
+                    answer={product?.description}
+                  />
+                )}
+                {product?.guide && (
+                  <FaqComp
+                    title={"Styling Guide"}
+                    answer={product?.guide}
+                  />
+                )}
               </div>
             </div>
           </div>
         </div>
 
+        {/* Reviews Section */}
+        <div className="">
+          <div className="max-w-7xl mx-auto pt-12">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="flex text-yellow-500">
+                {Array(5).fill().map((_, i) => (
+                  <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="w-5 h-5" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  </svg>
+                ))}
+              </div>
+              <p className="text-gray-800 font-medium">{reviewProduct?.totalRatings || 0} Reviews</p>
+            </div>
 
-         <div className="">
-      <div className="max-w-7xl mx-auto pt-12">
-        <div className="flex items-center space-x-2 mb-4">
-          <div className="flex text-yellow-500">
-            {Array(5).fill().map((_, i) => (
-              <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="w-5 h-5" viewBox="0 0 24 24">
-                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-              </svg>
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {reviewProduct?.data?.map((r, i) => (
+                <ReviewCard key={i} name={r.name} text={r.review} rating={r.rating} />
+              ))}
+              {(!reviewProduct?.data || reviewProduct.data.length === 0) && (
+                <p className="text-gray-500 col-span-2 text-center py-8">No reviews yet.</p>
+              )}
+            </div>
+
+            <div className="text-center mt-6">
+              <button className="px-4 py-2 text-sm border rounded hover:bg-gray-100 transition">
+                Show more reviews
+              </button>
+            </div>
           </div>
-          <p className="text-gray-800 font-medium">{reviewProduct?.totalRatings} Reviews</p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-         {reviewProduct?.data?.map((r, i) => (
-  <ReviewCard key={i} name={r.name} text={r.review} rating={r.rating} />
-))}
-        </div>
-
-        <div className="text-center mt-6">
-          <button className="px-4 py-2 text-sm border rounded hover:bg-gray-100 transition">
-            Show more reviews
-          </button>
-        </div>
-      </div>
-    </div>
 
         {/* Rest of your component remains the same... */}
         {/* Section with alternate bg */}
@@ -595,9 +722,8 @@ const reviews = [
         <AddToCartSideMenu onClose={() => setShowCartSideMenu(false)} />
       )}
 
-
-      <FAQ/>
-
+      <FAQ />
+      <Footer />
     </>
   )
 }

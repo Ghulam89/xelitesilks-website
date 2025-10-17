@@ -12,6 +12,9 @@ import axios from 'axios';
 import { useState } from 'react';
 import PageMetadata from '../../components/common/PageMetadata';
 import BlogCard from '../../components/common/BlogCard';
+import TopNav from '../../components/Header/TopNav';
+import Navbar from '../../components/Header/Navbar';
+import Footer from '../../components/Footer/Footer';
 
 function Blogs() {
 
@@ -73,7 +76,8 @@ function Blogs() {
 
     return (
         <>
-
+<TopNav />
+     <Navbar />
          <PageMetadata {...metadata} />
             <div className='container-fluid mx-auto'>
                 <div
@@ -110,6 +114,8 @@ function Blogs() {
                     </div>
                 )}
             </div>
+
+            <Footer/>
         </>
     )
 }

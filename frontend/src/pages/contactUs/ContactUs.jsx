@@ -3,6 +3,9 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { BaseUrl } from '../../utils/BaseUrl';
+import Navbar from '../../components/Header/Navbar';
+import TopNav from '../../components/Header/TopNav';
+import Footer from '../../components/Footer/Footer';
 
 function ContactUs() {
   // Validation schema using Yup
@@ -54,7 +57,11 @@ function ContactUs() {
   });
 
   return (
-    <div>
+
+    <>
+     <TopNav/>
+         <Navbar/>
+          <div>
       {/** Map */}
       <div className='container-fluid'>
         <iframe
@@ -185,6 +192,10 @@ function ContactUs() {
         </div>
       </div>
     </div>
+
+    <Footer/>
+    </>
+   
   );
 }
 

@@ -178,7 +178,7 @@ const GetPriceQuote = () => {
                   type="submit"
                   label={isLoading ? "Sending..." : "Send"}
                   disabled={!validateStep2() || isLoading}
-                  className={`bg-[#4440E6] w-full sm:w-40 text-white py-2.5 px-4 rounded-lg hover:bg-[#3938b8] transition-colors ${!validateStep2() || isLoading ? 'opacity-100  bg-[#4440E6] cursor-not-allowed' : ''
+                  className={`bg-[#C5A980] w-full sm:w-40 text-white py-2.5 px-4 rounded-lg hover:bg-[#3938b8] transition-colors ${!validateStep2() || isLoading ? 'opacity-100  bg-[#C5A980] cursor-not-allowed' : ''
                     }`}
                 />
               </div>
@@ -412,7 +412,7 @@ const GetPriceQuote = () => {
                     type="file"
                     name="image"
                     onChange={handleChange}
-                    className="border w-full bg-white rounded-lg border-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:opacity-100 file:bg-[#4440E6] file:text-white hover:file:bg-[#3a36c7]"
+                    className="border w-full bg-white rounded-lg border-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:opacity-100 file:bg-[#C5A980] file:text-white hover:file:bg-[#3a36c7]"
                     accept=".png,.pdf,.jpg,.jpeg,.webp"
                   />
                 </div>
@@ -448,7 +448,7 @@ const GetPriceQuote = () => {
                   onClick={nextStep}
                   label="Next"
                   disabled={!validateStep1()}
-                  className={`bg-[#4440E6] w-full sm:w-40 text-white py-2.5 px-4 rounded-lg hover:bg-[#3938b8] transition-colors ${!validateStep1() ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`bg-[#C5A980] w-full sm:w-40 text-white py-2.5 px-4 rounded-lg hover:bg-[#3938b8] transition-colors ${!validateStep1() ? 'opacity-50 cursor-not-allowed' : ''}`}
                 />
               </div>
             </div>

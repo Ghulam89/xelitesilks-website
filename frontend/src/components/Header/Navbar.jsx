@@ -5,8 +5,11 @@ import { Link } from "react-router-dom";
 import PopupLoginSignUp from "../../pages/auth/PopupLoginSignUp";
 import PopupSearchModal from "./PopupSearchModal";
 import { useSelector } from "react-redux";
+import AddToCartSideMenu from "../common/AddToCartSideMenu";
 
 const Navbar = () => {
+
+  const [showCartSideMenu,setShowCartSideMenu] = useState(false)
   const [menu, setMenu] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [showModel,setShowModel] = useState(false)
@@ -121,6 +124,9 @@ const Navbar = () => {
          
         </div>
 
+       {showCartSideMenu && (
+        <AddToCartSideMenu onClose={() => setShowCartSideMenu(false)} />
+      )}
         <BottomNav Menu={menu} OpenMenu={OpenMenu} />
 
                           {showModel && <PopupLoginSignUp onClose={()=>setShowModel(false)}/>}

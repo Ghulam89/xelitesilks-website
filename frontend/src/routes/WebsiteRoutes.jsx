@@ -12,6 +12,7 @@ import SingleBlog from "../pages/blogs/SingleBlog";
 import Category from "../pages/category/Category";
 import Cart from "../pages/cart/Cart";
 import Profile from "../pages/profile";
+import Checkout from "../pages/checkout/Checkout";
 
 export default function WebsiteRoutes({ serverData, CategoryProducts }) {
  const location = useLocation();
@@ -52,6 +53,7 @@ function ProductDetailsWrapper({ serverData }) {
     { path: '/blogs', element: <Blogs key="blog" /> },
     { path: '/profile', element: <Profile key="profile" /> },
     { path: '/cart', element: <Cart key="cart" /> },
+    { path: '/checkout', element: <Checkout key="checkout" /> },
     { path: '/contact-us', element: <ContactUs key="contact-us" /> },
     { path: '/about-us', element: <About key="about-us" /> },
         // { path: '/404', element: <NotFound key="not-found" /> },
