@@ -3,6 +3,7 @@ import cat1 from '../../assets/images/collection/cat1.jpeg';
 import cat2 from '../../assets/images/collection/cat2.jpg';
 import cat3 from '../../assets/images/collection/cat3.jpeg';
 import cat4 from '../../assets/images/collection/cat4.jpeg';
+import { Link } from "react-router-dom";
 
 const ShopByCategories = () => {
   return (
@@ -34,7 +35,7 @@ const ShopByCategories = () => {
         <div className="grid grid-rows-2 gap-6">
 
           {/* Long Scarves */}
-          <div className="relative group w-full h-64 rounded-xl overflow-hidden shadow-md transition-transform duration-300 hover:scale-105 cursor-pointer">
+          <Link to={'/collections/womens-long-scarves-100-percent-made-in-italy'} className="relative group w-full h-64 rounded-xl overflow-hidden shadow-md transition-transform duration-300 hover:scale-105 cursor-pointer">
             <img
               src={cat3}
               alt="Long Scarves"
@@ -48,10 +49,10 @@ const ShopByCategories = () => {
                 Long Scarves
               </button>
             </div>
-          </div>
+          </Link>
 
           {/* Handmade Ties */}
-          <div className="relative group w-full h-64 rounded-xl overflow-hidden shadow-md transition-transform duration-300 hover:scale-105 cursor-pointer">
+          <Link to={'/collections/italian-ties-luxury-neckties'} className="relative group w-full h-64 rounded-xl overflow-hidden shadow-md transition-transform duration-300 hover:scale-105 cursor-pointer">
             <img
               src={cat4}
               alt="Handmade Ties"
@@ -65,7 +66,7 @@ const ShopByCategories = () => {
                 Handmade Ties
               </button>
             </div>
-          </div>
+          </Link>
         </div>
 
         {/* Right - Men's Scarves */}

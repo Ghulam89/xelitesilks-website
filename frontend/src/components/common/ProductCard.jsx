@@ -34,13 +34,13 @@ const ProductCard = ({ product }) => {
             className={`object-cover object-center w-full h-full transition-opacity duration-700 ${isHovered ? 'opacity-0' : 'opacity-100'
               }`}
             alt={name}
-            src={`/${primaryImage}`}
+            src={`${BaseUrl}/${primaryImage}`}
           />
           <img
             className={`object-cover object-center w-full h-full absolute top-0 left-0 transition-opacity duration-700 ${isHovered ? 'opacity-100' : 'opacity-0'
               }`}
             alt={name}
-            src={`/${hoverImage}`}
+            src={`${BaseUrl}/${hoverImage}`}
           />
         </Link>
 
