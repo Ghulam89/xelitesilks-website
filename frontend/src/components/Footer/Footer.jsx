@@ -88,7 +88,7 @@ const Footer = () => {
             {/* <li><Link to="/size-guide">Size Guide</Link></li> */}
             <li><Link to="/contact-us">Contact Us</Link></li>
             {/* <li><Link to="/career">Career</Link></li> */}
-            <li><Link to="/profile">My Account</Link></li>
+            <li><Link to="/dashboard">My Account</Link></li>
           </ul>
         </div>
 

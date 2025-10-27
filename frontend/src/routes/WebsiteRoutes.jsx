@@ -13,6 +13,8 @@ import Category from "../pages/category/Category";
 import Cart from "../pages/cart/Cart";
 import Profile from "../pages/profile";
 import Checkout from "../pages/checkout/Checkout";
+import Dashboard from "../pages/dashboard";
+import Orders from "../pages/dashboard/Orders";
 
 export default function WebsiteRoutes({ serverData, CategoryProducts }) {
  const location = useLocation();
@@ -51,7 +53,14 @@ function ProductDetailsWrapper({ serverData }) {
   return [
     { path: '/', element: <Home key="home" /> },
     { path: '/blogs', element: <Blogs key="blog" /> },
-    { path: '/profile', element: <Profile key="profile" /> },
+     {
+      path: '/dashboard',
+      element: <Dashboard key="dashboard" />,
+      children: [
+        { index: true, element: <Orders key="orders" /> },
+    { path: 'profile', element: <Profile key="profile" /> },
+      ],
+    },
     { path: '/cart', element: <Cart key="cart" /> },
     { path: '/checkout', element: <Checkout key="checkout" /> },
     { path: '/contact-us', element: <ContactUs key="contact-us" /> },

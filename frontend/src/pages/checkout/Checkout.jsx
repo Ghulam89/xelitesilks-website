@@ -5,7 +5,7 @@ import logo from '../../assets/images/xelite silk.svg';
 import { Link } from 'react-router-dom';
 
 const Checkout = () => {
-  const { productData: cartItems } = useSelector((state) => state.product);
+  const { productData: cartItems, userInfo } = useSelector((state) => state.product);
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('credit-card');
   const [formData, setFormData] = useState({
@@ -57,6 +57,9 @@ const Checkout = () => {
       firstName: formData.firstName,
       lastName: formData.lastName,
       companyName: formData.companyName,
+      phoneNumber: formData.mobileNumber,
+      note: formData.note || '',
+      userId: userInfo?._id || null, // Add userId to associate order with user
       delivery: {
         country: formData.country,
         addressLine1: formData.address, // Changed from 'address' to 'addressLine1'
@@ -71,6 +74,9 @@ const Checkout = () => {
     };
 
     try {
+      console.log('Checkout payload:', checkoutPayload) // Debug log
+      console.log('User info:', userInfo) // Debug log
+      
       const response = await fetch('http://localhost:7000/checkout/create', {
         method: 'POST',
         headers: {
