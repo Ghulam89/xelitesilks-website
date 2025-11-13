@@ -150,7 +150,7 @@ app.use('*', async (req, res, next) => {
         render = (await vite.ssrLoadModule('../frontend/src/entry-server.jsx')).render;
       } catch (error) {
         console.error('Vite development error:', error);
-        return sendErrorResponse(res, 'Development server error');
+        // return sendErrorResponse(res, 'Development server error');
       }
     } else if (isProduction && productionTemplate && productionRender) {
       // Production mode
@@ -158,7 +158,7 @@ app.use('*', async (req, res, next) => {
       render = productionRender;
     } else {
       // Server not ready
-      return sendErrorResponse(res, 'Server not ready yet');
+      // return sendErrorResponse(res, 'Server not ready yet');
     }
     
     const renderPromise = render(url);
@@ -197,34 +197,34 @@ app.use('*', async (req, res, next) => {
         
         res.status(200).set({ 'Content-Type': 'text/html' }).send(fallbackHtml);
       } else {
-        sendErrorResponse(res, 'SSR timeout and no template available');
+        // sendErrorResponse(res, 'SSR timeout and no template available');
       }
     } else {
       console.error('SSR Error:', e.stack);
-      sendErrorResponse(res, 'Server rendering error');
+      // sendErrorResponse(res, 'Server rendering error');
     }
   }
 });
 
-function sendErrorResponse(res, message) {
-  res.status(500).send(`
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Error</title>
-        <style>
-          body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-          h1 { color: #d32f2f; }
-        </style>
-      </head>
-      <body>
-        <h1>Something went wrong</h1>
-        <p>${message}</p>
-        <p>Please try again later.</p>
-      </body>
-    </html>
-  `);
-}
+// function sendErrorResponse(res, message) {
+//   res.status(500).send(`
+//     <!DOCTYPE html>
+//     <html>
+//       <head>
+//         <title>Error</title>
+//         <style>
+//           body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+//           h1 { color: #d32f2f; }
+//         </style>
+//       </head>
+//       <body>
+//         <h1>Something went wrong</h1>
+//         <p>${message}</p>
+//         <p>Please try again later.</p>
+//       </body>
+//     </html>
+//   `);
+// }
 
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, '0.0.0.0', () => {
