@@ -96,11 +96,11 @@ const Footer = () => {
         <div className=" ">
           <h5 className="font-semibold  text-lg mb-4">Customer Services</h5>
           <ul className="space-y-2 text-sm text-gray-700">
-            <li><Link to="/shipping-policy">Shipping</Link></li>
-            <li><Link to="/returns-refunds">Return & Refund</Link></li>
-            <li><Link to="/privacy-policy">Privacy Policy</Link></li>
-            <li><Link to="/terms-and-conditions">Terms & Conditions</Link></li>
-            <li><Link to="/faqs"> FAQs</Link></li>
+            <li><Link to="/shipping-and-delivery">Shipping & Packaging</Link></li>
+            <li><Link to="/returns">Returns & Exchanges</Link></li>
+            {/* <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+            <li><Link to="/terms-and-conditions">Terms & Conditions</Link></li> */}
+            <li><Link to="/reviews">Reviews</Link></li>
             {/* <li><Link to="/wishlist">My Wishlist</Link></li> */}
           </ul>
         </div>

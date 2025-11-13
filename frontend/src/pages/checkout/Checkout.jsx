@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import logo from '../../assets/images/xelite silk.svg';
 import { Link } from 'react-router-dom';
+import { BaseUrl } from '../../utils/BaseUrl';
+import { deleteProduct } from '../../store/productSlice';
 
 const Checkout = () => {
   const { productData: cartItems, userInfo } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('credit-card');
   const [formData, setFormData] = useState({
@@ -53,17 +56,17 @@ const Checkout = () => {
     setIsProcessing(true);
 
     const checkoutPayload = {
-      email: formData.email,
+   email: formData.email,
       firstName: formData.firstName,
       lastName: formData.lastName,
       companyName: formData.companyName,
       phoneNumber: formData.mobileNumber,
       note: formData.note || '',
-      userId: userInfo?._id || null, // Add userId to associate order with user
+      userId: userInfo?._id || null,
       delivery: {
         country: formData.country,
-        addressLine1: formData.address, // Changed from 'address' to 'addressLine1'
-        addressLine2: formData.apartment, // Optional
+        addressLine1: formData.address,
+        addressLine2: formData.apartment,
         city: formData.city,
         state: formData.state,
         zipCode: formData.zipCode
@@ -74,10 +77,7 @@ const Checkout = () => {
     };
 
     try {
-      console.log('Checkout payload:', checkoutPayload) // Debug log
-      console.log('User info:', userInfo) // Debug log
-      
-      const response = await fetch('http://localhost:7000/checkout/create', {
+      const response = await fetch(`${BaseUrl}/checkout/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -86,12 +86,25 @@ const Checkout = () => {
       });
 
       const data = await response.json();
-      
+       
+       
+        
       if (!response.ok) {
         throw new Error(data.message || 'Could not create checkout');
       }
 
       toast.success('Order placed successfully!');
+
+      if (cartItems && cartItems.length) {
+        cartItems.forEach(item => {
+          try {
+            dispatch(deleteProduct(item._id));
+            //  navigate('/thank-you');
+          } catch (err) {
+          }
+        });
+      }
+     
     } catch (error) {
       console.error('Checkout error:', error);
       toast.error(error.message || 'Failed to place order');
@@ -307,7 +320,7 @@ const Checkout = () => {
                   </label>
 
                   {paymentMethod === 'credit-card' && (
-                    <div className="p-4 pt-0 bg-white space-y-3">
+                    <div className="p-4 pt-4 bg-white space-y-3">
                       <div className="relative">
                         <input
                           type="text"

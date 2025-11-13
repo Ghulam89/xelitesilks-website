@@ -30,7 +30,11 @@ import { Rating } from "../model/rating.js";
 
 export const getRatings = async (req, res) => {
   try {
-    const ratings = await Rating.find();
+        const ratings = await Rating.find().populate([
+      { path: "product", select: "name slug images" },
+    ]).populate([
+      { path: "user", select: "username" },
+    ]);
     res.status(200).json({
       data: ratings,
       message: "Ratings fetched successfully",

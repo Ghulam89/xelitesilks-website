@@ -95,10 +95,7 @@ useEffect(() => {
         "@type": "FAQPage",
         "mainEntity": faqItemSchema || []
     };
-    console.log(singleBlog);
-
-    const [IsModalOpen,setIsModalOpen] = useState(false);
-
+   
     return (
         <>
 

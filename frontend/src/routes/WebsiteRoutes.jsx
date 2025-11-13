@@ -15,6 +15,9 @@ import Profile from "../pages/profile";
 import Checkout from "../pages/checkout/Checkout";
 import Dashboard from "../pages/dashboard";
 import Orders from "../pages/dashboard/Orders";
+import ReturnsExchangesPolicy from "../pages/ReturnsExchangesPolicy";
+import ShippingNdPackaging from "../pages/ShippingNdPackaging";
+import Reviews from "../pages/reviews";
 
 export default function WebsiteRoutes({ serverData, CategoryProducts }) {
  const location = useLocation();
@@ -63,6 +66,9 @@ function ProductDetailsWrapper({ serverData }) {
     },
     { path: '/cart', element: <Cart key="cart" /> },
     { path: '/checkout', element: <Checkout key="checkout" /> },
+    { path: '/returns', element: <ReturnsExchangesPolicy key="returns" /> },
+    { path: '/shipping-and-delivery', element: <ShippingNdPackaging key="shipping" /> },
+    { path: '/reviews', element: <Reviews key="shipping" /> },
     { path: '/contact-us', element: <ContactUs key="contact-us" /> },
     { path: '/about-us', element: <About key="about-us" /> },
         // { path: '/404', element: <NotFound key="not-found" /> },
