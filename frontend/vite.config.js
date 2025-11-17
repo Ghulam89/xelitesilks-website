@@ -15,9 +15,8 @@ export default defineConfig({
     },
   },
    server: {
-   
+    historyApiFallback: true,
  allowedHosts: ["xelitesilks.com", "www.xelitesilks.com"],
-  historyApiFallback: true,
   },
    ssr: {
     noExternal: ['react-helmet-async', 'react-dom/server','react-redux', 'redux-persist', '@reduxjs/toolkit','react-quill','jodit-react']
